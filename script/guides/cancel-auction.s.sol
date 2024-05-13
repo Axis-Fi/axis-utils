@@ -9,7 +9,7 @@ import {Constants} from "script/guides/constants.s.sol";
 // Axis contracts
 import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 
-contract CreateAuctionScript is Script, Constants {
+contract CancelAuctionScript is Script, Constants {
     function run() public {
         // Define the deployed AuctionHouse
         IAuctionHouse auctionHouse = IAuctionHouse(_auctionHouse);
