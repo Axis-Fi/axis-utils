@@ -5,10 +5,12 @@ import {Script} from "forge-std/Script.sol";
 
 import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 
-contract CreateAuctionScript is Script {
+import {Constants} from "script/guides/constants.s.sol";
+
+contract CreateAuctionScript is Script, Constants {
     function run() external {
         // Define the deployed AuctionHouse
-        IAuctionHouse auctionHouse = IAuctionHouse()
+        IAuctionHouse auctionHouse = IAuctionHouse(_auctionHouse);
 
         // Define the tokens used in the auction
 
