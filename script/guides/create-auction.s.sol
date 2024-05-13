@@ -22,7 +22,7 @@ import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncrypte
 contract CreateAuctionScript is Script, Constants {
     function run() external {
         // Define the deployed AuctionHouse
-        IAuctionHouse auctionHouse = IAuctionHouse(_auctionHouse);
+        IAuctionHouse auctionHouse = IAuctionHouse(_batchAuctionHouse);
 
         // Define the tokens used in the auction
         MockERC20 quoteToken = new MockERC20();

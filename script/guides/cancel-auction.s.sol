@@ -12,7 +12,7 @@ import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 contract CancelAuctionScript is Script, Constants {
     function run() public {
         // Define the deployed AuctionHouse
-        IAuctionHouse auctionHouse = IAuctionHouse(_auctionHouse);
+        IAuctionHouse auctionHouse = IAuctionHouse(_batchAuctionHouse);
 
         // Obtain the lot from the environment variable
         uint256 lotIdRaw = vm.envUint("LOT_ID");
