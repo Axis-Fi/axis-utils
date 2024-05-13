@@ -35,38 +35,37 @@ contract CreateAuctionScript is Script, Constants {
             auctionType: toKeycode("EMPA"),
             baseToken: address(baseToken),
             quoteToken: address(quoteToken),
-            curator: address(0),
-            callbacks: ICallback(address(0)),
-            callbackData: abi.encode(""),
-            derivativeType: toKeycode(""),
-            derivativeParams: abi.encode(""),
+            curator: address(0), // Optional
+            callbacks: ICallback(address(0)), // Optional
+            callbackData: abi.encode(""), // Optional
+            derivativeType: toKeycode(""), // Optional
+            derivativeParams: abi.encode(""), // Optional
             wrapDerivative: false
         });
 
         // Calculate the auction public key
-        Point memory auctionPublicKey = ECIES.calcPubKey(
-            Point(1, 2),
-            vm.envUint("AUCTION_PRIVATE_KEY")
-        );
+        Point memory auctionPublicKey =
+            ECIES.calcPubKey(Point(1, 2), vm.envUint("AUCTION_PRIVATE_KEY"));
 
         // Define the auction module parameters
         IEncryptedMarginalPrice.AuctionDataParams memory empParams = IEncryptedMarginalPrice
             .AuctionDataParams({
-            minPrice: 1e18,
-            minFillPercent: 10_000,
-            minBidSize: 1e18,
+            minPrice: 1e18, // 1 quote token per base token
+            minFillPercent: 10_000, // 10%
+            minBidSize: 1e18, // 1 quote token
             publicKey: auctionPublicKey
         });
 
         // Define the auction parameters
         uint48 start = uint48(block.timestamp + 1 days);
         uint48 duration = uint48(3 days);
+        bool capacityInQuote = false;
         uint256 capacity = 10e18;
 
         IAuction.AuctionParams memory auctionParams = IAuction.AuctionParams({
             start: start,
             duration: duration,
-            capacityInQuote: false,
+            capacityInQuote: capacityInQuote,
             capacity: capacity,
             implParams: abi.encode(empParams)
         });
@@ -77,12 +76,13 @@ contract CreateAuctionScript is Script, Constants {
         // The AuctionHouse will pull base tokens from the seller upon auction creation,
         // so approve the auction capacity
         vm.prank(_SELLER);
-        baseToken.approve(address(auctionHouse), 10e18);
+        baseToken.approve(address(auctionHouse), capacity);
 
         // Define the IPFS hash for additional information
         string memory ipfsHash = "";
 
         // Create the auction
+        vm.prank(_SELLER);
         uint96 lotId = auctionHouse.auction(routingParams, auctionParams, ipfsHash);
         console2.log("Created auction with lot ID:", lotId);
     }
