@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
 import {Point} from "src/lib/ECIES.sol";
 
+/// @notice Interface for encrypted marginal price (batch) auctions
 interface IEncryptedMarginalPrice is IBatchAuction {
     /// @notice         Parameters that are used to set auction-specific data
     ///
