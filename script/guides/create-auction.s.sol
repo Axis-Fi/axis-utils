@@ -8,6 +8,7 @@ import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 contract CreateAuctionScript is Script {
     function run() external {
         // Define the deployed AuctionHouse
+        IAuctionHouse auctionHouse = IAuctionHouse()
 
         // Define the tokens used in the auction
 
