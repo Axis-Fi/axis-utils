@@ -25,10 +25,8 @@ contract CreateAuctionScript is Script, Constants {
         IAuctionHouse auctionHouse = IAuctionHouse(_batchAuctionHouse);
 
         // Define the tokens used in the auction
-        MockERC20 quoteToken = new MockERC20();
-        quoteToken.initialize("Quote Token", "QT", 18);
-        MockERC20 baseToken = new MockERC20();
-        baseToken.initialize("Base Token", "BT", 18);
+        MockERC20 quoteToken = _getQuoteToken();
+        MockERC20 baseToken = _getBaseToken();
 
         // Define the auction routing parameters
         IAuctionHouse.RoutingParams memory routingParams = IAuctionHouse.RoutingParams({
