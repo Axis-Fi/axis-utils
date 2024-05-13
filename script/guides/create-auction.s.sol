@@ -71,7 +71,7 @@ contract CreateAuctionScript is Script, Constants {
         });
 
         // Mint base tokens to the seller
-        baseToken.mint(_SELLER, 10e18);
+        baseToken.mint(_SELLER, capacity);
 
         // The AuctionHouse will pull base tokens from the seller upon auction creation,
         // so approve the auction capacity
