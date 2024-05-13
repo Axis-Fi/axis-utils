@@ -6,13 +6,19 @@ import {console2} from "forge-std/console2.sol";
 import {Script} from "forge-std/Script.sol";
 import {Constants} from "script/guides/constants.s.sol";
 
+// Mocks
+import {MockERC20} from "test/mocks/MockERC20.sol";
+
 // Axis contracts
 import {IAtomicAuctionHouse} from "src/interfaces/IAtomicAuctionHouse.sol";
 
 contract PurchaseScript is Script, Constants {
-    function run() public {
+    function run(bool usePermit2_) public {
         // Define the deployed AtomicAuctionHouse
         IAtomicAuctionHouse auctionHouse = IAtomicAuctionHouse(_atomicAuctionHouse);
+
+        // Define the tokens used in the auction
+        MockERC20 quoteToken = _getQuoteToken();
 
         // Obtain the lot from the environment variable
         uint256 lotIdRaw = vm.envUint("LOT_ID");
@@ -46,6 +52,15 @@ contract PurchaseScript is Script, Constants {
             auctionData: auctionData, // Auction module-specific data
             permit2Data: permit2Data // Permit 2 approval (optional)
         });
+
+        // Mint the required quote tokens
+        quoteToken.mint(_BUYER, amount);
+
+        // Approve spending of quote tokens
+        if (usePermit2_ == false) {
+            vm.prank(_BUYER);
+            quoteToken.approve(_atomicAuctionHouse, amount);
+        }
 
         // Conduct the purchase
         // The buyer must have enough quote tokens to complete the purchase
