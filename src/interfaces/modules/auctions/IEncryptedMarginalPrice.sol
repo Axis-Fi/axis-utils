@@ -2,13 +2,9 @@
 pragma solidity >=0.8.0;
 
 import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
+import {Point} from "src/lib/ECIES.sol";
 
 interface IEncryptedMarginalPrice is IBatchAuction {
-    struct Point {
-        uint256 x;
-        uint256 y;
-    }
-
     /// @notice         Parameters that are used to set auction-specific data
     ///
     /// @param          minPrice            The minimum price (in quote tokens) that a bid must fulfill

@@ -9,6 +9,9 @@ import {Constants} from "script/guides/constants.s.sol";
 // Mocks
 import {MockERC20} from "test/mocks/MockERC20.sol";
 
+// Libraries
+import {ECIES, Point} from "src/lib/ECIES.sol";
+
 // Axis contracts
 import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 import {IAuction} from "src/interfaces/IAuction.sol";
@@ -40,13 +43,19 @@ contract CreateAuctionScript is Script, Constants {
             wrapDerivative: false
         });
 
+        // Calculate the auction public key
+        Point memory auctionPublicKey = ECIES.calcPubKey(
+            Point(1, 2),
+            vm.envUint("AUCTION_PRIVATE_KEY")
+        );
+
         // Define the auction module parameters
         IEncryptedMarginalPrice.AuctionDataParams memory empParams = IEncryptedMarginalPrice
             .AuctionDataParams({
             minPrice: 1e18,
             minFillPercent: 10_000,
             minBidSize: 1e18,
-            publicKey: IEncryptedMarginalPrice.Point({x: 0, y: 0})
+            publicKey: auctionPublicKey
         });
 
         // Define the auction parameters
