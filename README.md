@@ -4,7 +4,7 @@ This repository contains periphery contracts related to the [Axis system](https:
 
 - Contract interfaces
 - Standard libraries
-- Example scripts (to accompany our developer guides)
+- Example scripts (to accompany our [developer guides](https://axis.finance/developer/))
 - TODO: callback salt generation scripts
 
 ## Requirements
