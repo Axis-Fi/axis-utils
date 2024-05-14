@@ -11,6 +11,7 @@ import {MockERC20} from "test/mocks/MockERC20.sol";
 
 // Axis contracts
 import {IAtomicAuctionHouse} from "src/interfaces/IAtomicAuctionHouse.sol";
+import {IFixedPriceSale} from "src/interfaces/modules/auctions/IFixedPriceSale.sol";
 
 contract PurchaseScript is Script, Constants {
     function run(bool usePermit2_) public {
@@ -32,8 +33,9 @@ contract PurchaseScript is Script, Constants {
         uint256 minAmountOut = 2e18;
         address recipient = address(0x10);
 
-        // Prepare parameters for the FixedPriceSale module, which expects the minimum amount out
-        bytes memory auctionData = abi.encode(minAmountOut);
+        // Prepare parameters for the FixedPriceSale module
+        IFixedPriceSale.PurchaseParams memory fpsPurchaseParams =
+            IFixedPriceSale.PurchaseParams({minAmountOut: minAmountOut});
 
         // Prepare Permit2 approval (unused)
         bytes memory permit2Data = abi.encode("");
@@ -49,7 +51,7 @@ contract PurchaseScript is Script, Constants {
             lotId: lotId,
             amount: amount, // The amount of quote tokens in
             minAmountOut: minAmountOut, // The minimum amount of base tokens out, otherwise it will revert
-            auctionData: auctionData, // Auction module-specific data
+            auctionData: abi.encode(fpsPurchaseParams), // Auction module-specific data
             permit2Data: permit2Data // Permit 2 approval (optional)
         });
 
