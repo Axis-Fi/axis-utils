@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity >=0.8.0;
 
-import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
 import {Point} from "src/lib/ECIES.sol";
 
 /// @notice Interface for encrypted marginal price (batch) auctions
-interface IEncryptedMarginalPrice is IBatchAuction {
+/// @dev    This contract does not inherit from `BatchAuctionModule` in order to avoid conflicts. Implementing contracts should inherit from both `BatchAuctionModule` and this interface.
+interface IEncryptedMarginalPrice {
     /// @notice         Parameters that are used to set auction-specific data
     ///
     /// @param          minPrice            The minimum price (in quote tokens) that a bid must fulfill
@@ -17,5 +17,14 @@ interface IEncryptedMarginalPrice is IBatchAuction {
         uint24 minFillPercent;
         uint256 minBidSize;
         Point publicKey;
+    }
+
+    /// @notice     Parameters to the bid function
+    ///
+    /// @param      encryptedAmountOut      The encrypted value of the bid amount out
+    /// @param      bidPublicKey            The public key used to encrypt the bid
+    struct BidParams {
+        uint256 encryptedAmountOut;
+        Point bidPublicKey;
     }
 }
