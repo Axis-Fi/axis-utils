@@ -1,0 +1,16 @@
+{
+  "name": "axis-periphery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "forge fmt && pnpm run solhint",
+    "solhint": "solhint --fix --noPrompt --config ./.solhint.json 'src/**/*.sol' 'test/**/*.sol' 'script/**/*.sol'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "solhint": "^5.0.1"
+  }
+}
