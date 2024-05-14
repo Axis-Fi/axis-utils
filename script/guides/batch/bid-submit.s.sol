@@ -38,7 +38,7 @@ contract BidSubmitScript is Script, Constants {
         // Prepare inputs
         uint96 amount = 1e18;
         uint96 amountOut = 2e18;
-        address recipient = address(0x10);
+        address bidder = address(0x10);
 
         // Fetch the public key from the EncryptedMarginalPrice contract
         Point memory auctionPublicKey;
@@ -61,7 +61,7 @@ contract BidSubmitScript is Script, Constants {
 
         // Encrypt the bid amount out
         uint256 encryptedAmountOut = EncryptedMarginalPriceBid.encryptAmountOut(
-            lotId, recipient, amount, amountOut, auctionPublicKey, bidSeed, bidPrivateKey
+            lotId, bidder, amount, amountOut, auctionPublicKey, bidSeed, bidPrivateKey
         );
 
         // Prepare parameters for the EncryptedMarginalPrice module
@@ -85,7 +85,7 @@ contract BidSubmitScript is Script, Constants {
         // Prepare parameters
         IBatchAuctionHouse.BidParams memory bidParams = IBatchAuctionHouse.BidParams({
             lotId: lotId,
-            bidder: recipient, // Who should receive the purchased tokens
+            bidder: bidder, // Who should receive the purchased tokens
             referrer: _REFERRER, // The referrer (e.g. frontend) for the buyer
             amount: amount, // The amount of quote tokens in
             auctionData: abi.encode(empBidParams), // Auction module-specific data

@@ -5,6 +5,7 @@ import {Point} from "src/lib/ECIES.sol";
 
 /// @notice Interface for encrypted marginal price (batch) auctions
 /// @dev    This contract does not inherit from `BatchAuctionModule` in order to avoid conflicts. Implementing contracts should inherit from both `BatchAuctionModule` and this interface.
+/// TODO consider if this should inherit from IBatchAuction
 interface IEncryptedMarginalPrice {
     // ========== DATA STRUCTURES ========== //
 
