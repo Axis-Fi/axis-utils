@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 // Script setup
 import {Script} from "forge-std/Script.sol";
 import {Constants} from "script/guides/constants.s.sol";
+import {console2} from "forge-std/console2.sol";
 
 // Axis contracts
 import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
@@ -57,5 +58,6 @@ contract BidCancelScript is Script, Constants {
 
         vm.prank(bidder);
         auctionHouse.refundBid(lotId, bidId, bidIndex);
+        console2.log("Purchase completed. Lot ID: %d, Bid ID: %d", lotId, bidId);
     }
 }
