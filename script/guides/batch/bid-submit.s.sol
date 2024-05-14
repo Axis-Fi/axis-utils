@@ -61,7 +61,7 @@ contract BidSubmitScript is Script, Constants {
 
         // Encrypt the bid amount out
         uint256 encryptedAmountOut = EncryptedMarginalPriceBid.encryptAmountOut(
-            lotId, _BUYER, amount, amountOut, auctionPublicKey, bidSeed, bidPrivateKey
+            lotId, recipient, amount, amountOut, auctionPublicKey, bidSeed, bidPrivateKey
         );
 
         // Prepare parameters for the EncryptedMarginalPrice module

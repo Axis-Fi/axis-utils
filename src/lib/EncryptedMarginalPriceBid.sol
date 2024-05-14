@@ -22,7 +22,7 @@ library EncryptedMarginalPriceBid {
     /// @notice Encrypts the amount out for a bid
     ///
     /// @param  lotId_              The ID of the auction lot
-    /// @param  bidder_             The address of the bidder
+    /// @param  bidder_             The address of the bidder that will receive refunds and payouts
     /// @param  amountIn_           The amount of the bid in quote tokens
     /// @param  amountOut_          The amount of the bid out in quote tokens
     /// @param  auctionPublicKey_   The public key of the auction
