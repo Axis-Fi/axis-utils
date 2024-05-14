@@ -2,20 +2,12 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
 import {Script} from "forge-std/Script.sol";
 import {Constants} from "script/guides/constants.s.sol";
 
-// Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
-
 // Axis contracts
 import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
 import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
-
-// Libraries
-import {EncryptedMarginalPriceBid} from "src/lib/EncryptedMarginalPriceBid.sol";
 
 contract BidCancelScript is Script, Constants {
     function run() public {

@@ -13,15 +13,17 @@ type Veecode is bytes7;
 
 error InvalidVeecode(Veecode veecode_);
 
+// solhint-disable-next-line private-vars-leading-underscore
 function toKeycode(bytes5 keycode_) pure returns (Keycode) {
     return Keycode.wrap(keycode_);
 }
 
+// solhint-disable-next-line private-vars-leading-underscore
 function fromKeycode(Keycode keycode_) pure returns (bytes5) {
     return Keycode.unwrap(keycode_);
 }
 
-// solhint-disable-next-line func-visibility
+// solhint-disable-next-line private-vars-leading-underscore
 function wrapVeecode(Keycode keycode_, uint8 version_) pure returns (Veecode) {
     // Get the digits of the version
     bytes1 firstDigit = bytes1(version_ / 10 + 0x30);
@@ -31,16 +33,17 @@ function wrapVeecode(Keycode keycode_, uint8 version_) pure returns (Veecode) {
     return Veecode.wrap(bytes7(abi.encodePacked(firstDigit, secondDigit, keycode_)));
 }
 
-// solhint-disable-next-line func-visibility
+// solhint-disable-next-line private-vars-leading-underscore
 function toVeecode(bytes7 veecode_) pure returns (Veecode) {
     return Veecode.wrap(veecode_);
 }
 
-// solhint-disable-next-line func-visibility
+// solhint-disable-next-line private-vars-leading-underscore
 function fromVeecode(Veecode veecode_) pure returns (bytes7) {
     return Veecode.unwrap(veecode_);
 }
 
+// solhint-disable-next-line private-vars-leading-underscore
 function unwrapVeecode(Veecode veecode_) pure returns (Keycode, uint8) {
     bytes7 unwrapped = Veecode.unwrap(veecode_);
 
@@ -57,12 +60,13 @@ function unwrapVeecode(Veecode veecode_) pure returns (Keycode, uint8) {
     return (keycode, version);
 }
 
+// solhint-disable-next-line private-vars-leading-underscore
 function keycodeFromVeecode(Veecode veecode_) pure returns (Keycode) {
     (Keycode keycode,) = unwrapVeecode(veecode_);
     return keycode;
 }
 
-// solhint-disable-next-line func-visibility
+// solhint-disable-next-line private-vars-leading-underscore
 function ensureValidVeecode(Veecode veecode_) pure {
     bytes7 unwrapped = Veecode.unwrap(veecode_);
     for (uint256 i; i < 7;) {
