@@ -9,7 +9,7 @@
         "const-name-snakecase": "warn",
         "var-name-mixedcase": "warn",
         "func-name-mixedcase": "off",
-        "immutable-name-snakecase": "warn",
+        "immutable-vars-naming": "warn",
         "modifier-name-mixedcase": "warn",
         "private-vars-leading-underscore": "warn",
         "not-rely-on-time": "off",
