@@ -26,6 +26,9 @@ jobs:
         with:
           version: nightly
 
+      - name: Run lint check
+        run: pnpm run lint:check
+
       - name: Run Forge build
         run: |
           forge --version
