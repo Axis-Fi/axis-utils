@@ -8,7 +8,6 @@ import {console2} from "forge-std/console2.sol";
 
 // Axis contracts
 import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
 
 contract BidClaimScript is Script, Constants {
     function run() public {
