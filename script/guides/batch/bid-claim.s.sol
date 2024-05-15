@@ -40,6 +40,8 @@ contract BidClaimScript is Script, Constants {
         bidIds[0] = bidId;
 
         // Perform the claim
+        // Anyone can claim bids on behalf of the bidder
+        // The proceeds/payout will go to the bidder
         auctionHouse.claimBids(lotId, bidIds);
         console2.log("Bid claim completed. Lot ID: %d, Bid ID: %d", lotId, bidId);
     }
