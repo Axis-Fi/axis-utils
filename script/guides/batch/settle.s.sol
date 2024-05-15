@@ -12,9 +12,6 @@ import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncrypte
 import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
 
 contract SettleScript is Script, Constants {
-    bytes32 internal constant _QUEUE_START =
-        0x0000000000000000ffffffffffffffffffffffff000000000000000000000001;
-
     function run() public {
         // Define the deployed BatchAuctionHouse
         IBatchAuctionHouse auctionHouse = IBatchAuctionHouse(_batchAuctionHouse);
@@ -38,37 +35,34 @@ contract SettleScript is Script, Constants {
             uint256 privateKey = vm.envUint("AUCTION_PRIVATE_KEY");
 
             // Submit private key can decrypt the bids, but we will skip this
-            uint64 numBidsToDecrypt;
-            bytes32[] memory sortHints;
+            uint64 submitNumBids;
+            bytes32[] memory submitSortHints;
 
             IEncryptedMarginalPrice(moduleAddress).submitPrivateKey(
-                lotId, privateKey, numBidsToDecrypt, sortHints
+                lotId, privateKey, submitNumBids, submitSortHints
             );
         }
 
         // Get the number of bids
         uint256 numBids = IBatchAuction(moduleAddress).getNumBids(lotId);
 
-        // Decrypt the bids
-        // The call can be performed by anyone
-        {
-            IEncryptedMarginalPrice empModule = IEncryptedMarginalPrice(moduleAddress);
+        uint64 bidsPerBatch = 100;
 
-            // Determine the number of 100-bid batches to decrypt
-            uint256 numBatches = numBids / 100;
+        // Prepare the sort hints
+        // This will not result in optimal gas usage
+        bytes32 queueStart = 0x0000000000000000ffffffffffffffffffffffff000000000000000000000001;
+        bytes32[] memory sortHints = new bytes32[](bidsPerBatch);
+        for (uint64 i = 0; i < bidsPerBatch; i++) {
+            sortHints[i] = queueStart;
+        }
 
-            // Prepare the sort hints
-            // This will not result in optimal gas usage
-            bytes32[] memory sortHints = new bytes32[](100);
-            for (uint64 i = 0; i < 100; i++) {
-                sortHints[i] = _QUEUE_START;
-            }
-
-            // Decrypt the bids in 100-bid batches
-            // If the number of bids is less than 100, numBatches will be 0 due to integer division and rounding down
-            for (uint64 i = 0; i <= numBatches; i++) {
-                empModule.decryptAndSortBids(lotId, 100, sortHints);
-            }
+        // Decrypt the bids in 100-bid batches
+        // If the number of bids is less than 100, numBatches will be 0 due to integer division and rounding down
+        IEncryptedMarginalPrice empModule = IEncryptedMarginalPrice(moduleAddress);
+        uint256 numBatches = numBids / bidsPerBatch;
+        for (uint64 i = 0; i <= numBatches; i++) {
+            // The call can be performed by anyone
+            empModule.decryptAndSortBids(lotId, bidsPerBatch, sortHints);
         }
 
         // Define callback data (unused)
