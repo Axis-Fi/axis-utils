@@ -13,10 +13,10 @@ import {MockERC20} from "test/mocks/MockERC20.sol";
 import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
 import {IAtomicAuctionHouse} from "src/interfaces/IAtomicAuctionHouse.sol";
 
-import {IAuction} from "src/interfaces/IAuction.sol";
+import {IAuction} from "src/interfaces/modules/IAuction.sol";
 import {IFixedPriceSale} from "src/interfaces/modules/auctions/IFixedPriceSale.sol";
 
-import {IDerivative} from "src/interfaces/IDerivative.sol";
+import {IDerivative} from "src/interfaces/modules/IDerivative.sol";
 import {ILinearVesting} from "src/interfaces/modules/derivatives/ILinearVesting.sol";
 
 import {ICallback} from "src/interfaces/ICallback.sol";

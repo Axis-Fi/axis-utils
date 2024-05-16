@@ -14,7 +14,7 @@ import {ECIES, Point} from "src/lib/ECIES.sol";
 
 // Axis contracts
 import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
-import {IAuction} from "src/interfaces/IAuction.sol";
+import {IAuction} from "src/interfaces/modules/IAuction.sol";
 import {ICallback} from "src/interfaces/ICallback.sol";
 import {toKeycode} from "src/modules/Keycode.sol";
 import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";

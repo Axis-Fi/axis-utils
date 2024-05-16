@@ -44,7 +44,7 @@ contract BidSubmitScript is Script, Constants {
         Point memory auctionPublicKey;
         {
             IEncryptedMarginalPrice empModule =
-                IEncryptedMarginalPrice(address(auctionHouse.getModuleForId(lotId)));
+                IEncryptedMarginalPrice(address(auctionHouse.getAuctionModuleForId(lotId)));
             IEncryptedMarginalPrice.AuctionData memory empAuctionData =
                 empModule.getAuctionData(lotId);
 
