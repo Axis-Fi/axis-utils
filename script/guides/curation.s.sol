@@ -75,8 +75,8 @@ contract CuratorScript is Script, Constants {
         }
         uint96 lotId = uint96(lotIdRaw);
 
-        // Get the callback data from the environment variable
-        bytes memory callbackData = vm.envBytes("CALLBACK_DATA");
+        // Callback data is unused in this example
+        bytes memory callbackData = abi.encode("");
 
         // Curate the lot
         // Must be performed as the curator
