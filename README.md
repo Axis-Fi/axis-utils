@@ -1,9 +1,7 @@
-# axis-periphery
+# axis-utils
 
-This repository contains periphery contracts related to the [Axis system](https://axis.finance/). This includes:
+This repository contains utility scripts and contracts related to the [Axis system](https://axis.finance/). This includes:
 
-- Contract interfaces
-- Standard libraries
 - Example scripts (to accompany our [developer guides](https://axis.finance/developer/))
 - TODO: callback salt generation scripts
 
@@ -13,14 +11,20 @@ This repository contains periphery contracts related to the [Axis system](https:
 
 ## Usage
 
+### Install Dependencies
+
+```shell
+pnpm install
+```
+
 ### Build
 
 ```shell
 forge build
 ```
 
-### Format
+### Linting
 
 ```shell
-forge fmt
+pnpm run lint
 ```
