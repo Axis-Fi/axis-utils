@@ -51,24 +51,33 @@ contract DerivativesScript is Script, Constants {
         });
 
         // Define the auction module parameters
-        uint256 fpsPrice = 1e18;
-        uint24 maxPayoutPercent = 10_000; // 10000 = 10%
-        IFixedPriceSale.AuctionDataParams memory fpsParams =
-            IFixedPriceSale.AuctionDataParams({price: fpsPrice, maxPayoutPercent: maxPayoutPercent});
+        IFixedPriceSale.AuctionDataParams memory fpsParams;
+        {
+            uint256 fpsPrice = 1e18;
+            uint24 maxPayoutPercent = 10_000; // 10000 = 10%
+            fpsParams = IFixedPriceSale.AuctionDataParams({
+                price: fpsPrice,
+                maxPayoutPercent: maxPayoutPercent
+            });
+        }
 
         // Define the auction parameters
-        uint48 start = uint48(block.timestamp + 1 days);
-        uint48 duration = uint48(3 days);
-        bool capacityInQuote = false;
-        uint256 capacity = 10e18;
+        IAuction.AuctionParams memory auctionParams;
+        uint256 capacity;
+        {
+            uint48 start = uint48(block.timestamp + 1 days);
+            uint48 duration = uint48(3 days);
+            bool capacityInQuote = false;
+            capacity = 10e18;
 
-        IAuction.AuctionParams memory auctionParams = IAuction.AuctionParams({
-            start: start,
-            duration: duration,
-            capacityInQuote: capacityInQuote,
-            capacity: capacity,
-            implParams: abi.encode(fpsParams)
-        });
+            auctionParams = IAuction.AuctionParams({
+                start: start,
+                duration: duration,
+                capacityInQuote: capacityInQuote,
+                capacity: capacity,
+                implParams: abi.encode(fpsParams)
+            });
+        }
 
         // Mint base tokens to the seller
         baseToken.mint(_SELLER, capacity);
@@ -76,7 +85,7 @@ contract DerivativesScript is Script, Constants {
         // The AuctionHouse will pull base tokens from the seller upon purchase
         // so approve the auction capacity
         vm.prank(_SELLER);
-        baseToken.approve(address(auctionHouse), capacity);
+        baseToken.approve(_atomicAuctionHouse, capacity);
 
         // Define the IPFS hash for additional information
         string memory ipfsHash = "";
@@ -101,15 +110,13 @@ contract DerivativesScript is Script, Constants {
         address recipient = address(0x10);
 
         // Obtain the lot routing information
-        IAuctionHouse.Routing lotRouting = auctionHouse.lotRouting(lotId);
+        (, address baseToken,,,,,,, bytes memory derivativeParams) = auctionHouse.lotRouting(lotId);
 
         // Obtain the address of the derivative module
-        address derivativeModuleAddress = auctionHouse.getModuleForId(lotId);
+        IDerivative derivativeModule = auctionHouse.getDerivativeModuleForId(lotId);
 
         // Determine the token id
-        IDerivative derivativeModule = IDerivative(derivativeModuleAddress);
-        uint256 tokenId =
-            derivativeModule.computeId(lotRouting.baseToken, lotRouting.derivativeParams);
+        uint256 tokenId = derivativeModule.computeId(baseToken, derivativeParams);
 
         // Determine how much can be redeemed
         uint256 redeemable = derivativeModule.redeemable(recipient, tokenId);
