@@ -8,7 +8,7 @@ import {console2} from "forge-std/console2.sol";
 
 // Axis contracts
 import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
+import {IBatchAuction} from "src/interfaces/modules/IBatchAuction.sol";
 
 contract BidCancelScript is Script, Constants {
     function run() public {
@@ -36,7 +36,7 @@ contract BidCancelScript is Script, Constants {
         }
 
         // Get the auction module
-        IBatchAuction empModule = IBatchAuction(address(auctionHouse.getModuleForId(lotId)));
+        IBatchAuction empModule = IBatchAuction(address(auctionHouse.getAuctionModuleForId(lotId)));
 
         // Determine the index of the bid
         uint256 bidCount = empModule.getNumBids(lotId);

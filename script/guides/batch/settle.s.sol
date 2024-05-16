@@ -9,7 +9,7 @@ import {console2} from "forge-std/console2.sol";
 // Axis contracts
 import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
 import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
-import {IBatchAuction} from "src/interfaces/IBatchAuction.sol";
+import {IBatchAuction} from "src/interfaces/modules/IBatchAuction.sol";
 
 contract SettleScript is Script, Constants {
     function run() public {
@@ -27,7 +27,7 @@ contract SettleScript is Script, Constants {
         }
 
         // Load the EMP module
-        address moduleAddress = address(auctionHouse.getModuleForId(lotId));
+        address moduleAddress = address(auctionHouse.getAuctionModuleForId(lotId));
 
         // Submit the private key
         // The call can be performed by anyone
