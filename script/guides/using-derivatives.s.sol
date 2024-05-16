@@ -32,7 +32,7 @@ contract DerivativesScript is Script, Constants {
         MockERC20 baseToken = _getBaseToken();
 
         // Prepare the parameters for the linear vesting derivative module
-        uint48 vestingStart = uint48(block.timestamp + 1 days);
+        uint48 vestingStart = uint48(block.timestamp + 7 days);
         uint48 vestingExpiry = vestingStart + 90 days;
         ILinearVesting.VestingParams memory vestingParams =
             ILinearVesting.VestingParams({start: vestingStart, expiry: vestingExpiry});
