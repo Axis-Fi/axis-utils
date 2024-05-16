@@ -47,7 +47,7 @@ contract DerivativesScript is Script, Constants {
             callbackData: abi.encode(""), // Optional
             derivativeType: toKeycode("LIV"), // Linear vesting
             derivativeParams: abi.encode(vestingParams), // Linear vesting parameters
-            wrapDerivative: false // true to wrap derivative tokens in an ERC20
+            wrapDerivative: true // true to wrap derivative tokens in an ERC20
         });
 
         // Define the auction module parameters
@@ -109,13 +109,11 @@ contract DerivativesScript is Script, Constants {
         // Prepare inputs
         address recipient = address(0x10);
 
-        // Obtain the lot routing information
-        (, address baseToken,,,,,,, bytes memory derivativeParams) = auctionHouse.lotRouting(lotId);
-
         // Obtain the address of the derivative module
         IDerivative derivativeModule = auctionHouse.getDerivativeModuleForId(lotId);
 
         // Determine the token id
+        (, address baseToken,,,,,,, bytes memory derivativeParams) = auctionHouse.lotRouting(lotId);
         uint256 tokenId = derivativeModule.computeId(baseToken, derivativeParams);
 
         // Determine how much can be redeemed
