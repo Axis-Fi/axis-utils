@@ -18,6 +18,7 @@ abstract contract Constants is Script {
     address internal constant _PROTOCOL = address(0x3);
     address internal constant _REFERRER = address(0x4);
     address internal constant _BUYER = address(0x5);
+    address internal constant _CURATOR = address(0x6);
 
     address internal constant _QUOTE_TOKEN = address(0x20);
     address internal constant _BASE_TOKEN = address(0x21);
