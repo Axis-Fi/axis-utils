@@ -1,5 +1,9 @@
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 
+// TODOs
+// - Specify the types of the values
+// - Pass in the values from the CLI or file
+
 // 0x4 and 0x5
 const values = [
   ["0x0000000000000000000000000000000000000004"],
