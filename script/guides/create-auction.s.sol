@@ -34,6 +34,7 @@ contract CreateAuctionScript is Script, Constants {
             baseToken: address(baseToken),
             quoteToken: address(quoteToken),
             curator: address(0), // Optional
+            referrerFee: 0, // Optional
             callbacks: ICallback(address(0)), // Optional
             callbackData: abi.encode(""), // Optional
             derivativeType: toKeycode(""), // Optional
