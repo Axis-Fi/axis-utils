@@ -15,8 +15,9 @@ import {IFixedPriceBatch} from "@axis-core-0.5.1/interfaces/modules/auctions/IFi
 import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
 
 // Callbacks
-// import {BaseDirectToLiquidity} from "@axis-core-0.5.1/callbacks/liquidity/BaseDTL.sol";
-// import {UniswapV2DirectToLiquidity} from "@axis-core-0.5.1/callbacks/liquidity/UniswapV2DTL.sol";
+import {BaseDirectToLiquidity} from "@axis-periphery-0.5.1/callbacks/liquidity/BaseDTL.sol";
+import {UniswapV2DirectToLiquidity} from
+    "@axis-periphery-0.5.1/callbacks/liquidity/UniswapV2DTL.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
@@ -59,14 +60,15 @@ contract TestData is Script, WithEnvironment {
                 callbackImplParams = abi.encode(uniswapV3PoolFee_);
             }
 
-            routingParams.callbackData = abi.encode("");
-            // BaseDirectToLiquidity.OnCreateParams({
-            //     proceedsUtilisationPercent: 5000, // 50%
-            //     vestingStart: 0,
-            //     vestingExpiry: 0,
-            //     recipient: msg.sender,
-            //     implParams: callbackImplParams
-            // })
+            routingParams.callbackData = abi.encode(
+                BaseDirectToLiquidity.OnCreateParams({
+                    proceedsUtilisationPercent: 5000, // 50%
+                    vestingStart: 0,
+                    vestingExpiry: 0,
+                    recipient: msg.sender,
+                    implParams: callbackImplParams
+                })
+            );
 
             // Approve spending of the base token by the callback (for deposit into the liquidity pool)
             ERC20(baseToken_).approve(callback_, 10e18);
@@ -150,9 +152,8 @@ contract TestData is Script, WithEnvironment {
 
         console2.log("Timestamp is", block.timestamp);
 
-        // bytes memory callbackData =
-        // abi.encode(UniswapV2DirectToLiquidity.OnSettleParams({maxSlippage: 50})); // 0.5%
-        bytes memory callbackData = abi.encode("");
+        bytes memory callbackData =
+            abi.encode(UniswapV2DirectToLiquidity.OnSettleParams({maxSlippage: 50})); // 0.5%
 
         vm.broadcast();
         auctionHouse.settle(lotId_, 100, callbackData);
