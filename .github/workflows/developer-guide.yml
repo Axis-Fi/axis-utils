@@ -1,4 +1,4 @@
-name: test
+name: developer-guide
 
 on:
     push:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: Foundry project
+    name: Developer Guide
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,21 +29,25 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-            version: 8
+            version: 9
 
       - name: Install Node dependencies
+        working-directory: packages/developer-guide
         run: pnpm install
 
       - name: Run lint check
+        working-directory: packages/developer-guide
         run: pnpm run lint:check
 
       - name: Run Forge build
+        working-directory: packages/developer-guide
         run: |
           forge --version
           forge build --sizes
         id: build
 
       # - name: Run Forge tests
+        # working-directory: packages/developer-guide
       #   run: |
       #     forge test -vvv
       #   id: test
