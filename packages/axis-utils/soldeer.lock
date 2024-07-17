@@ -16,3 +16,9 @@ name = "axis-core"
 version = "0.5.1"
 source = "git@github.com:Axis-Fi/axis-core.git"
 checksum = "d07b3311771ea3162d99aa68689e40f4f4bd8135"
+
+[[dependencies]]
+name = "axis-periphery"
+version = "0.5.1"
+source = "git@github.com:Axis-Fi/axis-periphery.git"
+checksum = "fffb93ada5fe5d6f6529f0030d1c16a623ab4782"
