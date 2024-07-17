@@ -22,3 +22,9 @@ name = "axis-periphery"
 version = "0.5.1"
 source = "git@github.com:Axis-Fi/axis-periphery.git"
 checksum = "fffb93ada5fe5d6f6529f0030d1c16a623ab4782"
+
+[[dependencies]]
+name = "solady"
+version = "0.0.124"
+source = "https://soldeer-revisions.s3.amazonaws.com/solady/0_0_124_22-01-2024_13:28:04_solady.zip"
+checksum = "9342385eaad08f9bb5408be0b41b241dd2b974c001f7da8c3b1ac552b52ce16b"
