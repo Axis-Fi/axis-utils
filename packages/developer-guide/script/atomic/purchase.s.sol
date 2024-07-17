@@ -2,16 +2,16 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Constants} from "../constants.s.sol";
 
 // Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
+import {MockERC20} from "../../test/mocks/MockERC20.sol";
 
 // Axis contracts
-import {IAtomicAuctionHouse} from "src/interfaces/IAtomicAuctionHouse.sol";
-import {IFixedPriceSale} from "src/interfaces/modules/auctions/IFixedPriceSale.sol";
+import {IAtomicAuctionHouse} from "@axis-core-0.5.1/interfaces/IAtomicAuctionHouse.sol";
+import {IFixedPriceSale} from "@axis-core-0.5.1/interfaces/modules/auctions/IFixedPriceSale.sol";
 
 contract PurchaseScript is Script, Constants {
     function run(bool usePermit2_) public {

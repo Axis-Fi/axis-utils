@@ -2,22 +2,23 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Constants} from "./constants.s.sol";
 
 // Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
+import {MockERC20} from "../test/mocks/MockERC20.sol";
 
 // Libraries
-import {ECIES, Point} from "src/lib/ECIES.sol";
+import {ECIES, Point} from "@axis-core-0.5.1/lib/ECIES.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
-import {IAuction} from "src/interfaces/modules/IAuction.sol";
-import {ICallback} from "src/interfaces/ICallback.sol";
-import {toKeycode} from "src/modules/Keycode.sol";
-import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
+import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
+import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
+import {ICallback} from "@axis-core-0.5.1/interfaces/ICallback.sol";
+import {toKeycode} from "@axis-core-0.5.1/modules/Keycode.sol";
+import {IEncryptedMarginalPrice} from
+    "@axis-core-0.5.1/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
 
 contract CreateAuctionScript is Script, Constants {
     function run() external {

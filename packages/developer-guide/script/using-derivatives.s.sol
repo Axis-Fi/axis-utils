@@ -2,25 +2,25 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {Constants} from "./constants.s.sol";
 
 // Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
+import {MockERC20} from "../test/mocks/MockERC20.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
-import {IAtomicAuctionHouse} from "src/interfaces/IAtomicAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
+import {IAtomicAuctionHouse} from "@axis-core-0.5.1/interfaces/IAtomicAuctionHouse.sol";
 
-import {IAuction} from "src/interfaces/modules/IAuction.sol";
-import {IFixedPriceSale} from "src/interfaces/modules/auctions/IFixedPriceSale.sol";
+import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
+import {IFixedPriceSale} from "@axis-core-0.5.1/interfaces/modules/auctions/IFixedPriceSale.sol";
 
-import {IDerivative} from "src/interfaces/modules/IDerivative.sol";
-import {ILinearVesting} from "src/interfaces/modules/derivatives/ILinearVesting.sol";
+import {IDerivative} from "@axis-core-0.5.1/interfaces/modules/IDerivative.sol";
+import {ILinearVesting} from "@axis-core-0.5.1/interfaces/modules/derivatives/ILinearVesting.sol";
 
-import {ICallback} from "src/interfaces/ICallback.sol";
-import {toKeycode} from "src/modules/Keycode.sol";
+import {ICallback} from "@axis-core-0.5.1/interfaces/ICallback.sol";
+import {toKeycode} from "@axis-core-0.5.1/modules/Keycode.sol";
 
 contract DerivativesScript is Script, Constants {
     function createAuction() external {
@@ -43,6 +43,7 @@ contract DerivativesScript is Script, Constants {
             baseToken: address(baseToken),
             quoteToken: address(quoteToken),
             curator: address(0), // Optional
+            referrerFee: uint48(0), // Optional
             callbacks: ICallback(address(0)), // Optional
             callbackData: abi.encode(""), // Optional
             derivativeType: toKeycode("LIV"), // Linear vesting

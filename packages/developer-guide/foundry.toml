@@ -26,3 +26,4 @@ ignore = [
 
 [dependencies]
 forge-std = "1.9.1"
+axis-core = { version = "0.5.1", git = "git@github.com:Axis-Fi/axis-core.git", rev = "d07b3311771ea3162d99aa68689e40f4f4bd8135" }

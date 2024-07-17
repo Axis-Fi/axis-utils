@@ -2,10 +2,10 @@
 pragma solidity ^0.8.19;
 
 // Script
-import {Script} from "forge-std/Script.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
 
 // Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
+import {MockERC20} from "../test/mocks/MockERC20.sol";
 
 abstract contract Constants is Script {
     /// @dev This is a testnet address

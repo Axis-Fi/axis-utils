@@ -2,20 +2,21 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Constants} from "../constants.s.sol";
 
 // Mocks
-import {MockERC20} from "test/mocks/MockERC20.sol";
+import {MockERC20} from "../../test/mocks/MockERC20.sol";
 
 // Axis contracts
-import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {IEncryptedMarginalPrice} from "src/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
+import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
+import {IEncryptedMarginalPrice} from
+    "@axis-core-0.5.1/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
 
 // Libraries
-import {EncryptedMarginalPriceBid} from "src/lib/EncryptedMarginalPriceBid.sol";
-import {ECIES, Point} from "src/lib/ECIES.sol";
+import {ECIES, Point} from "@axis-core-0.5.1/lib/ECIES.sol";
+import {EncryptedMarginalPriceBid} from "../../src/lib/EncryptedMarginalPriceBid.sol";
 
 contract BidSubmitScript is Script, Constants {
     function run(bool usePermit2_) public {

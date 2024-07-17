@@ -2,13 +2,13 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
-import {console2} from "forge-std/console2.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Constants} from "../constants.s.sol";
 
 // Axis contracts
-import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {IBatchAuction} from "src/interfaces/modules/IBatchAuction.sol";
+import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
+import {IBatchAuction} from "@axis-core-0.5.1/interfaces/modules/IBatchAuction.sol";
 
 contract BidCancelScript is Script, Constants {
     function run() public {

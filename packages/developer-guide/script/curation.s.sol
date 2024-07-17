@@ -2,14 +2,14 @@
 pragma solidity >=0.8.0;
 
 // Script setup
-import {console2} from "forge-std/console2.sol";
-import {Script} from "forge-std/Script.sol";
-import {Constants} from "script/guides/constants.s.sol";
+import {console2} from "@forge-std-1.9.1/console2.sol";
+import {Script} from "@forge-std-1.9.1/Script.sol";
+import {Constants} from "./constants.s.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
-import {IFeeManager} from "src/interfaces/IFeeManager.sol";
-import {Keycode, toKeycode} from "src/modules/Keycode.sol";
+import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
+import {IFeeManager} from "@axis-core-0.5.1/interfaces/IFeeManager.sol";
+import {Keycode, toKeycode} from "@axis-core-0.5.1/modules/Keycode.sol";
 
 contract CuratorScript is Script, Constants {
     function setCuratorMaxFee() public {
