@@ -66,6 +66,6 @@ else
 fi
 
 # Create auction
-forge script ./script/ops/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "placeBid(string,uint96,uint256)()" $CHAIN $lotId $amount \
+forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "placeBid(string,uint96,uint256)()" $CHAIN $lotId $amount \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG

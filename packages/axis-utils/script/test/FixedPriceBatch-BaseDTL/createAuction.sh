@@ -81,6 +81,6 @@ else
 fi
 
 # Create auction
-forge script ./script/ops/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,uint24)()" $CHAIN $quoteToken $baseToken $callback $poolFee \
+forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,uint24)()" $CHAIN $quoteToken $baseToken $callback $poolFee \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG
