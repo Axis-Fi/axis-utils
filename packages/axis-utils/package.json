@@ -1,0 +1,19 @@
+{
+  "name": "axis-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "forge fmt && pnpm run solhint",
+    "lint:check": "forge fmt --check && pnpm run solhint:check",
+    "postinstall": "./install.sh",
+    "solhint": "solhint --fix --noPrompt --config ./.solhint.json 'src/**/*.sol' 'test/**/*.sol' 'script/**/*.sol'",
+    "solhint:check": "solhint --config ./.solhint.json 'src/**/*.sol' 'test/**/*.sol' 'script/**/*.sol'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "solhint": "^5.0.1"
+  }
+}

@@ -1,0 +1,53 @@
+name: axis-utils
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+
+env:
+  FOUNDRY_PROFILE: ci
+
+jobs:
+  check:
+    strategy:
+      fail-fast: true
+
+    name: axis-utils
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+            version: 9
+
+      - name: Install Node dependencies
+        working-directory: packages/axis-utils
+        run: pnpm install
+
+      - name: Run lint check
+        working-directory: packages/axis-utils
+        run: pnpm run lint:check
+
+      - name: Run Forge build
+        working-directory: packages/axis-utils
+        run: |
+          forge --version
+          forge build --sizes
+        id: build
+
+      # - name: Run Forge tests
+      # working-directory: packages/axis-utils
+      #   run: |
+      #     forge test -vvv
+      #   id: test
