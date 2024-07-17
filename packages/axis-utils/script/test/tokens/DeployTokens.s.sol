@@ -12,9 +12,11 @@ contract DeployTokens is Script {
         vm.startBroadcast();
 
         // Deploy mock tokens
-        MockERC20 quoteToken = new MockERC20("Test Token 1", "TT1", 18);
+        MockERC20 quoteToken = new MockERC20();
+        quoteToken.initialize("Test Token 1", "TT1", 18);
         console2.log("Quote token deployed at address: ", address(quoteToken));
-        MockERC20 baseToken = new MockERC20("Test Token 2", "TT2", 18);
+        MockERC20 baseToken = new MockERC20();
+        baseToken.initialize("Test Token 2", "TT2", 18);
         console2.log("Base token deployed at address: ", address(baseToken));
 
         // Mint quote tokens to buyer
