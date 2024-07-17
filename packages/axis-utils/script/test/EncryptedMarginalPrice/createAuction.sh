@@ -39,6 +39,6 @@ then
 fi
 
 # Create auction
-forge script ./script/ops/test/TestData.s.sol:TestData --sig $CALLDATA \
+forge script ./script/test/EncryptedMarginalPrice/TestData.s.sol:TestData --sig $CALLDATA \
 --rpc-url $RPC_URL --private-key $BIDDER_PRIVATE_KEY --froms $BIDDER_ADDRESS --slow -vvv \
 --broadcast

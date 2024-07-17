@@ -5,11 +5,11 @@ pragma solidity 0.8.19;
 import {Script, console2} from "@forge-std-1.9.1/Script.sol";
 
 // System contracts
-import {BatchAuctionHouse} from "../../../src/BatchAuctionHouse.sol";
-import {IAuctionHouse} from "../../../src/interfaces/IAuctionHouse.sol";
-import {toKeycode} from "../../../src/modules/Modules.sol";
-import {EncryptedMarginalPrice} from "../../../src/modules/auctions/batch/EMP.sol";
-import {Point} from "../../../src/lib/ECIES.sol";
+import {BatchAuctionHouse} from "@axis-core-0.5.1/BatchAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
+import {toKeycode} from "@axis-core-0.5.1/modules/Modules.sol";
+import {EncryptedMarginalPrice} from "@axis-core-0.5.1/modules/auctions/batch/EMP.sol";
+import {Point} from "@axis-core-0.5.1/lib/ECIES.sol";
 
 // Generic contracts
 import {MockERC20} from "@solmate-6.7.0/test/utils/mocks/MockERC20.sol";
