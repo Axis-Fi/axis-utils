@@ -1,4 +1,4 @@
-# FixedPriceBatch - Uniswap DTL Testing
+# FixedPriceBatch - With Optional Uniswap DTL Testing
 
 ## How to Test
 

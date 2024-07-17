@@ -2,22 +2,25 @@
 pragma solidity 0.8.19;
 
 // Scripting libraries
-import {Script, console2} from "forge-std/Script.sol";
-import {WithEnvironment} from "script/deploy/WithEnvironment.s.sol";
+import {Script, console2} from "@forge-std-1.9.1/Script.sol";
+import {WithEnvironment} from "@axis-periphery-0.5.1-script/deploy/WithEnvironment.s.sol";
 
 // System contracts
-import {IBatchAuctionHouse} from "src/interfaces/IBatchAuctionHouse.sol";
-import {BatchAuctionHouse} from "src/BatchAuctionHouse.sol";
-import {IAuctionHouse} from "src/interfaces/IAuctionHouse.sol";
-import {toKeycode} from "src/modules/Modules.sol";
-import {ICallback} from "src/interfaces/ICallback.sol";
-import {IFixedPriceBatch} from "src/interfaces/modules/auctions/IFixedPriceBatch.sol";
-import {IAuction} from "src/interfaces/modules/IAuction.sol";
-import {BaselineAxisLaunch} from "src/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
+import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
+import {BatchAuctionHouse} from "@axis-core-0.5.1/BatchAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
+import {toKeycode} from "@axis-core-0.5.1/modules/Modules.sol";
+import {ICallback} from "@axis-core-0.5.1/interfaces/ICallback.sol";
+import {IFixedPriceBatch} from "@axis-core-0.5.1/interfaces/modules/auctions/IFixedPriceBatch.sol";
+import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
+
+// Baseline
+import {BaselineAxisLaunch} from
+    "@axis-periphery-0.5.1/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
 
 // Generic contracts
-import {ERC20} from "lib/solmate/src/tokens/ERC20.sol";
-import {MockERC20} from "lib/solmate/src/test/utils/mocks/MockERC20.sol";
+import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
+import {MockERC20} from "@solmate-6.7.0/test/utils/mocks/MockERC20.sol";
 
 contract TestData is Script, WithEnvironment {
     BatchAuctionHouse public auctionHouse;
