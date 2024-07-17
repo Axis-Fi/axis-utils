@@ -1,4 +1,4 @@
-name: developer-guide
+name: axis-utils
 
 on:
     push:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: Developer Guide
+    name: axis-utils
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,22 +32,22 @@ jobs:
             version: 9
 
       - name: Install Node dependencies
-        working-directory: packages/developer-guide
+        working-directory: packages/axis-utils
         run: pnpm install
 
       - name: Run lint check
-        working-directory: packages/developer-guide
+        working-directory: packages/axis-utils
         run: pnpm run lint:check
 
       - name: Run Forge build
-        working-directory: packages/developer-guide
+        working-directory: packages/axis-utils
         run: |
           forge --version
           forge build --sizes
         id: build
 
       # - name: Run Forge tests
-        # working-directory: packages/developer-guide
+      # working-directory: packages/axis-utils
       #   run: |
       #     forge test -vvv
       #   id: test

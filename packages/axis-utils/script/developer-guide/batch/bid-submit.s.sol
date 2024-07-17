@@ -7,7 +7,7 @@ import {console2} from "@forge-std-1.9.1/console2.sol";
 import {Constants} from "../constants.s.sol";
 
 // Mocks
-import {MockERC20} from "../../test/mocks/MockERC20.sol";
+import {MockERC20} from "../../../test/mocks/MockERC20.sol";
 
 // Axis contracts
 import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
@@ -16,7 +16,7 @@ import {IEncryptedMarginalPrice} from
 
 // Libraries
 import {ECIES, Point} from "@axis-core-0.5.1/lib/ECIES.sol";
-import {EncryptedMarginalPriceBid} from "../../src/lib/EncryptedMarginalPriceBid.sol";
+import {EncryptedMarginalPriceBid} from "../../../src/lib/EncryptedMarginalPriceBid.sol";
 
 contract BidSubmitScript is Script, Constants {
     function run(bool usePermit2_) public {

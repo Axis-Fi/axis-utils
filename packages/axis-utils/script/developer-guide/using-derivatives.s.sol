@@ -7,7 +7,7 @@ import {Script} from "@forge-std-1.9.1/Script.sol";
 import {Constants} from "./constants.s.sol";
 
 // Mocks
-import {MockERC20} from "../test/mocks/MockERC20.sol";
+import {MockERC20} from "../../test/mocks/MockERC20.sol";
 
 // Axis contracts
 import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
