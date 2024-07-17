@@ -19,32 +19,6 @@ contract TestData is Script {
     MockERC20 public quoteToken;
     MockERC20 public baseToken;
 
-    function deployTestTokens(address seller, address buyer) public {
-        vm.startBroadcast();
-
-        // Deploy mock tokens
-        quoteToken = new MockERC20("Test Token 1", "TT1", 18);
-        console2.log("Quote token deployed at address: ", address(quoteToken));
-        baseToken = new MockERC20("Test Token 2", "TT2", 18);
-        console2.log("Base token deployed at address: ", address(baseToken));
-
-        // Mint quote tokens to buyer
-        quoteToken.mint(buyer, 1e25);
-        console2.log("Minted 1e25 quote tokens to buyer");
-
-        // Mint base tokens to seller
-        baseToken.mint(seller, 1e25);
-        console2.log("Minted 1e25 base tokens to seller");
-
-        vm.stopBroadcast();
-    }
-
-    function mintTestTokens(address token, address receiver) public {
-        // Mint tokens to address
-        vm.broadcast();
-        MockERC20(token).mint(receiver, 1e24);
-    }
-
     function createAuction(uint256 pubKeyX, uint256 pubKeyY) public returns (uint96) {
         // Load addresses from .env
         auctionHouse = BatchAuctionHouse(vm.envAddress("AUCTION_HOUSE"));

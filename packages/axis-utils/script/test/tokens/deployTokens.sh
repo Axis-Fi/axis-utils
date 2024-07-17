@@ -98,7 +98,7 @@ else
 fi
 
 # Create auction
-forge script ./script/ops/test/TestData.s.sol:TestData --sig "deployTestTokens(address,address)()" $seller $buyer \
+forge script ./script/test/DeployTokens.s.sol:DeployTokens --sig "deployTestTokens(address,address)()" $seller $buyer \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvv \
 $BROADCAST_FLAG \
 $VERIFY_FLAG \
