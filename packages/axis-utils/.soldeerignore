@@ -1,10 +1,6 @@
-node_modules/
-dependencies/
-
 # Compiler files
-cache/
 out/
-bytecode/
+cache/
 
 # Ignores development broadcast logs
 broadcast/
@@ -16,3 +12,14 @@ docs/
 .env
 .env.*
 !.env.example
+
+node_modules/
+
+# Bytecode
+bytecode/
+
+# soldeer
+dependencies/
+
+# git
+.git/

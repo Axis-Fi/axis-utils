@@ -6,17 +6,17 @@ import {Script, console2} from "@forge-std-1.9.1/Script.sol";
 import {WithEnvironment} from "../../WithEnvironment.s.sol";
 
 // System contracts
-import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
-import {BatchAuctionHouse} from "@axis-core-0.5.1/BatchAuctionHouse.sol";
-import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
-import {toKeycode} from "@axis-core-0.5.1/modules/Modules.sol";
-import {ICallback} from "@axis-core-0.5.1/interfaces/ICallback.sol";
-import {IFixedPriceBatch} from "@axis-core-0.5.1/interfaces/modules/auctions/IFixedPriceBatch.sol";
-import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
+import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";
+import {BatchAuctionHouse} from "@axis-core-1.0.0/BatchAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
+import {toKeycode} from "@axis-core-1.0.0/modules/Modules.sol";
+import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
+import {IFixedPriceBatch} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceBatch.sol";
+import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
 
 // Baseline
 import {BaselineAxisLaunch} from
-    "@axis-periphery-0.5.1/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
+    "@axis-periphery-0.9.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";

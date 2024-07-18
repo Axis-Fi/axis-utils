@@ -7,7 +7,7 @@ import {console2} from "@forge-std-1.9.1/console2.sol";
 import {Constants} from "../constants.s.sol";
 
 // Axis contracts
-import {IBatchAuctionHouse} from "@axis-core-0.5.1/interfaces/IBatchAuctionHouse.sol";
+import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";
 
 contract AbortScript is Script, Constants {
     function run() public {
