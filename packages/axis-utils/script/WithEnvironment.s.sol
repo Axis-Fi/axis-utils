@@ -17,8 +17,8 @@ abstract contract WithEnvironment is Script {
         console2.log("Using chain:", chain_);
 
         // Load environment file
-        envAxisCore = vm.readFile("dependencies/axis-core-0.5.1/script/env.json");
-        envAxisPeriphery = vm.readFile("dependencies/axis-periphery-0.5.1/script/env.json");
+        envAxisCore = vm.readFile("dependencies/axis-core-1.0.0/script/env.json");
+        envAxisPeriphery = vm.readFile("dependencies/axis-periphery-0.9.0/script/env.json");
     }
 
     /// @notice Get address from environment file

@@ -3,8 +3,8 @@ src = "src"
 out = "out"
 libs = ["lib"]
 fs_permissions = [
-  {access = "read", path = "./dependencies/axis-core-0.5.1/script/env.json"},
-  {access = "read", path = "./dependencies/axis-periphery-0.5.1/script/env.json"},
+  {access = "read", path = "./dependencies/axis-core-1.0.0/script/env.json"},
+  {access = "read", path = "./dependencies/axis-periphery-0.9.0/script/env.json"},
 ]
 ffi = true
 solc_version = "0.8.19"
