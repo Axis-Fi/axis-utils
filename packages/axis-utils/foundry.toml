@@ -28,7 +28,7 @@ ignore = [
 forge-std = "1.9.1"
 solmate = { version = "6.7.0", url = "git@github.com:transmissions11/solmate.git", commit = "c892309933b25c03d32b1b0d674df7ae292ba925" }
 axis-core = { version = "1.0.0" }
-axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "c514e6096280e564af05664c193095578ab2f4bf" }
+axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "631c877c9fd4d0cbb5aa3f51b9bd37ae0ce28a38" }
 solady = { version = "0.0.124" }
 clones-with-immutable-args = { version = "1.1.1", git = "git@github.com:wighawag/clones-with-immutable-args.git", rev = "f5ca191afea933d50a36d101009b5644dc28bc99" }
 "@openzeppelin-contracts" = { version = "4.9.2" }
