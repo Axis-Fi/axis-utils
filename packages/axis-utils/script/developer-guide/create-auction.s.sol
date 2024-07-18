@@ -10,15 +10,15 @@ import {Constants} from "./constants.s.sol";
 import {MockERC20} from "../../test/mocks/MockERC20.sol";
 
 // Libraries
-import {ECIES, Point} from "@axis-core-0.5.1/lib/ECIES.sol";
+import {ECIES, Point} from "@axis-core-1.0.0/lib/ECIES.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
-import {IAuction} from "@axis-core-0.5.1/interfaces/modules/IAuction.sol";
-import {ICallback} from "@axis-core-0.5.1/interfaces/ICallback.sol";
-import {toKeycode} from "@axis-core-0.5.1/modules/Keycode.sol";
+import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
+import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
+import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
+import {toKeycode} from "@axis-core-1.0.0/modules/Keycode.sol";
 import {IEncryptedMarginalPrice} from
-    "@axis-core-0.5.1/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
+    "@axis-core-1.0.0/interfaces/modules/auctions/IEncryptedMarginalPrice.sol";
 
 contract CreateAuctionScript is Script, Constants {
     function run() external {

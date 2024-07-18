@@ -7,9 +7,9 @@ import {Script} from "@forge-std-1.9.1/Script.sol";
 import {Constants} from "./constants.s.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "@axis-core-0.5.1/interfaces/IAuctionHouse.sol";
-import {IFeeManager} from "@axis-core-0.5.1/interfaces/IFeeManager.sol";
-import {Keycode, toKeycode} from "@axis-core-0.5.1/modules/Keycode.sol";
+import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
+import {IFeeManager} from "@axis-core-1.0.0/interfaces/IFeeManager.sol";
+import {Keycode, toKeycode} from "@axis-core-1.0.0/modules/Keycode.sol";
 
 contract CuratorScript is Script, Constants {
     function setCuratorMaxFee() public {

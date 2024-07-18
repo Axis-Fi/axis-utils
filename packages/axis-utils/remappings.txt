@@ -1,9 +1,9 @@
 @forge-std-1.9.1=dependencies/forge-std-1.9.1/src
-@axis-core-0.5.1=dependencies/axis-core-0.5.1/src
+@axis-core-1.0.0=dependencies/axis-core-1.0.0/src
 @solmate-6.7.0=dependencies/solmate-6.7.0/src
-@axis-periphery-0.5.1=dependencies/axis-periphery-0.5.1/src
-@axis-periphery-0.5.1-script=dependencies/axis-periphery-0.5.1/script
-@axis-periphery-0.5.1-test=dependencies/axis-periphery-0.5.1/test
+@axis-periphery-0.9.0=dependencies/axis-periphery-0.9.0/src
+@axis-periphery-0.9.0-script=dependencies/axis-periphery-0.9.0/script
+@axis-periphery-0.9.0-test=dependencies/axis-periphery-0.9.0/test
 @solady-0.0.124=dependencies/solady-0.0.124/src
 @clones-with-immutable-args-1.1.1=dependencies/clones-with-immutable-args-1.1.1/src
 @openzeppelin-contracts-4.9.2=dependencies/@openzeppelin-contracts-4.9.2
