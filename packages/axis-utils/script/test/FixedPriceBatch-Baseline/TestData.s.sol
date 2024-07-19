@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 // Scripting libraries
 import {Script, console2} from "@forge-std-1.9.1/Script.sol";
-import {WithEnvironment} from "@axis-periphery-0.9.0-script/deploy/WithEnvironment.s.sol";
+import {WithEnvironment} from "../../WithEnvironment.s.sol";
 
 // System contracts
 import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";
@@ -13,9 +13,10 @@ import {toKeycode} from "@axis-core-1.0.0/modules/Modules.sol";
 import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
 import {IFixedPriceBatch} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceBatch.sol";
 import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
-// import {BaselineAxisLaunch} from "@axis-core-1.0.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
-// import {BALwithAllocatedAllowlist} from
-//     "@axis-core-1.0.0/callbacks/liquidity/BaselineV2/BALwithAllocatedAllowlist.sol";
+
+// Baseline
+import {BaselineAxisLaunch} from
+    "@axis-periphery-0.9.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
@@ -51,12 +52,14 @@ contract TestData is Script, WithEnvironment {
         routingParams.callbacks = ICallback(callback_);
         if (callback_ != address(0)) {
             console2.log("Setting callback parameters");
-            // routingParams.callbackData = abi.encode(
-            //     BaselineAxisLaunch.CreateData({
-            //         discoveryTickWidth: 100,
-            //         allowlistParams: abi.encode(merkleRoot)
-            //     })
-            // );
+            routingParams.callbackData = abi.encode(
+                BaselineAxisLaunch.CreateData({
+                    floorReservesPercent: 50e2, // 50%
+                    anchorTickWidth: 3,
+                    discoveryTickWidth: 100,
+                    allowlistParams: abi.encode(merkleRoot)
+                })
+            );
 
             // No spending approval necessary, since the callback will handle it
         } else {

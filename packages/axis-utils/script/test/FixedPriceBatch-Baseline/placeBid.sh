@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./settleAuction.sh --lotId <uint96> --envFile <.env>
+# ./placeBid.sh --lotId <uint96> --amount <uint256> --envFile <.env>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -43,9 +43,33 @@ then
   exit 1
 fi
 
+# Check that the amount is defined and is an integer
+if [[ ! "$amount" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid amount specified. Provide the integer value after the --amount flag."
+  exit 1
+fi
+
+# Check that the merkle proof is defined and is a bytes32 string
+if [[ ! "$merkleProof" =~ ^0x[a-fA-F0-9]{64}$ ]]
+then
+  echo "Invalid merkle proof specified. Provide the bytes32 string after the --merkleProof flag."
+  exit 1
+fi
+
+# Check that the allocated amount is defined and is an integer
+if [[ ! "$allocatedAmount" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid allocated amount specified. Provide the integer value after the --allocatedAmount flag."
+  exit 1
+fi
+
 echo "Using chain: $CHAIN"
 echo "Using RPC at URL: $RPC_URL"
 echo "Lot ID: $lotId"
+echo "Amount: $amount"
+echo "Merkle proof: $merkleProof"
+echo "Allocated amount: $allocatedAmount"
 echo "Deployer: $DEPLOYER_ADDRESS"
 
 # Set BROADCAST_FLAG based on BROADCAST
@@ -58,6 +82,6 @@ else
 fi
 
 # Create auction
-forge script ./script/test/FixedPriceBatch/TestData.s.sol:TestData --sig "settleAuction(string,uint96)()" $CHAIN $lotId \
+forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "placeBid(string,uint96,uint256,bytes32,uint256)()" $CHAIN $lotId $amount $merkleProof $allocatedAmount \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG

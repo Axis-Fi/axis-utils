@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 // Scripting libraries
 import {Script, console2} from "@forge-std-1.9.1/Script.sol";
-import {WithEnvironment} from "@axis-periphery-0.9.0-script/deploy/WithEnvironment.s.sol";
+import {WithEnvironment} from "../../WithEnvironment.s.sol";
 
 // System contracts
 import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";

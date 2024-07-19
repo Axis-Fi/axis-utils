@@ -2,6 +2,11 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+fs_permissions = [
+  {access = "read", path = "./dependencies/axis-core-1.0.0/script/env.json"},
+  {access = "read", path = "./dependencies/axis-periphery-0.9.0/script/env.json"},
+]
+ffi = true
 solc_version = "0.8.19"
 evm_version = "paris"
 
@@ -28,9 +33,10 @@ ignore = [
 forge-std = "1.9.1"
 solmate = { version = "6.7.0", url = "git@github.com:transmissions11/solmate.git", commit = "c892309933b25c03d32b1b0d674df7ae292ba925" }
 axis-core = { version = "1.0.0" }
-axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "631c877c9fd4d0cbb5aa3f51b9bd37ae0ce28a38" }
+axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "a87edb37c610315dd46cd2d780863bb477f5c0c6" }
 solady = { version = "0.0.124" }
 clones-with-immutable-args = { version = "1.1.1", git = "git@github.com:wighawag/clones-with-immutable-args.git", rev = "f5ca191afea933d50a36d101009b5644dc28bc99" }
 "@openzeppelin-contracts" = { version = "4.9.2" }
 "@uniswap-v2-core" = { version = "1.0.1" }
 "@uniswap-v2-periphery" = { version = "1.0.1", git = "git@github.com:Axis-Fi/uniswap-v2-periphery.git", rev = "19be650786731dfe43cac3aac7a2d1f0731d18e2" }
+"@uniswap-v3-core" = { version = "1.0.1-solc-0.8-simulate" }
