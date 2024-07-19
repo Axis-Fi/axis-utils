@@ -21,7 +21,7 @@ checksum = "9b5716ade218b4064bba7cca7d31065e6aa66574ad92386aaf2cc71b5c21bbb4"
 name = "axis-periphery"
 version = "0.9.0"
 source = "git@github.com:Axis-Fi/axis-periphery.git"
-checksum = "670ee9796f888b6e87f7dc5da235ead38495c2de"
+checksum = "a87edb37c610315dd46cd2d780863bb477f5c0c6"
 
 [[dependencies]]
 name = "solady"
