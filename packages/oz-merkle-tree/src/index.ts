@@ -15,14 +15,14 @@ const generateMerkleTree = (name: string, values: any[][], types: string[]) => {
 
   for (const [i, v] of tree.entries()) {
     const proof = tree.getProof(i);
-    console.log('Value:', v);
-    console.log('Proof:', proof);
+    console.log("Value:", v);
+    console.log("Proof:", proof);
   }
 
   Bun.write(`out/${name}.json`, JSON.stringify(tree.dump(), null, 2));
 
   console.log("");
-}
+};
 
 const addressValues = [
   ["0x0000000000000000000000000000000000000004"],
@@ -32,7 +32,10 @@ const addressValues = [
 const allocatedAddressValues = [
   ["0x0000000000000000000000000000000000000004", "5000000000000000000"],
   ["0x0000000000000000000000000000000000000020", "0"],
-]
+];
 
 generateMerkleTree("address", addressValues, ["address"]);
-generateMerkleTree("allocated-address", allocatedAddressValues, ["address", "uint256"]);
+generateMerkleTree("allocated-address", allocatedAddressValues, [
+  "address",
+  "uint256",
+]);

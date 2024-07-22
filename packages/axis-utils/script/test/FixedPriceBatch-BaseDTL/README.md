@@ -6,7 +6,7 @@
 2. Store the environment variables in an environment file
 3. Deploy the Axis stack
 4. Create the auction
-    - You will need to provide the quote token, base token
+   - You will need to provide the quote token, base token
 
 ## To Settle an Auction
 
