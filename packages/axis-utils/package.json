@@ -17,6 +17,6 @@
   "license": "ISC",
   "devDependencies": {
     "prettier": "3.3.3",
-    "solhint": "^5.0.1"
+    "solhint-community": "^3.7.0"
   }
 }
