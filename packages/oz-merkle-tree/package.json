@@ -3,12 +3,19 @@
   "module": "src/index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "prettier": "3.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@openzeppelin/merkle-tree": "^1.0.6"
+  },
+  "scripts": {
+    "fmt:check": "prettier --check .",
+    "fmt": "prettier --write .",
+    "lint:check": "pnpm run fmt:check",
+    "lint": "pnpm run fmt"
   }
 }

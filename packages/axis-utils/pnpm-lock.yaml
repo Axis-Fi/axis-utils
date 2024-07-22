@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      prettier:
+        specifier: 3.3.3
+        version: 3.3.3
       solhint:
         specifier: ^5.0.1
         version: 5.0.1
@@ -322,6 +325,11 @@ packages:
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+
+  prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+    engines: {node: '>=14'}
     hasBin: true
 
   proto-list@1.2.4:
@@ -692,6 +700,8 @@ snapshots:
 
   prettier@2.8.8:
     optional: true
+
+  prettier@3.3.3: {}
 
   proto-list@1.2.4: {}
 
