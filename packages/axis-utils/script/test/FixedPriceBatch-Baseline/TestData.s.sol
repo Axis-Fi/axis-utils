@@ -36,7 +36,12 @@ contract TestData is Script, WithEnvironment {
         address quoteToken_,
         address baseToken_,
         address callback_,
-        bytes32 merkleRoot
+        bytes32 merkleRoot,
+        uint24 poolPercent_,
+        uint24 floorReservesPercent_,
+        int24 floorRangeGap_,
+        int24 anchorTickU_,
+        int24 anchorTickWidth_
     ) public returns (uint96) {
         // Load addresses from .env
         _loadEnv(chain_);
@@ -55,11 +60,11 @@ contract TestData is Script, WithEnvironment {
             routingParams.callbackData = abi.encode(
                 BaselineAxisLaunch.CreateData({
                     recipient: msg.sender,
-                    poolPercent: 50e2, // 50%
-                    floorReservesPercent: 50e2, // 50%
-                    floorRangeGap: 0, // No spacing
-                    anchorTickU: 0, // TODO
-                    anchorTickWidth: 3,
+                    poolPercent: poolPercent_,
+                    floorReservesPercent: floorReservesPercent_,
+                    floorRangeGap: floorRangeGap_,
+                    anchorTickU: anchorTickU_,
+                    anchorTickWidth: anchorTickWidth_,
                     allowlistParams: abi.encode(merkleRoot)
                 })
             );

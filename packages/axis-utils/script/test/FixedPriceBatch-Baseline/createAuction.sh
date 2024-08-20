@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --envFile <.env>
+# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --allowlistMerkleRoot <bytes32> --poolPercent <uint24> --floorReservesPercent <uint24> --floorRangeGap <int24> --anchorTickUpper <int24> --anchorTickWidth <int24> --envFile <.env>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -64,13 +64,53 @@ then
   exit 1
 fi
 
+# Check that the poolPercent is defined and is a number
+if [[ ! "$poolPercent" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid pool percent specified. Provide the number after the --poolPercent flag."
+  exit 1
+fi
+
+# Check that the floorReservesPercent is defined and is a number
+if [[ ! "$floorReservesPercent" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid floor reserves percent specified. Provide the number after the --floorReservesPercent flag."
+  exit 1
+fi
+
+# Check that the floorRangeGap is defined and is a number
+if [[ ! "$floorRangeGap" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid floor range gap specified. Provide the number after the --floorRangeGap flag."
+  exit 1
+fi
+
+# Check that the anchorTickUpper is defined and is a number
+if [[ ! "$anchorTickUpper" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid anchor tick upper specified. Provide the number after the --anchorTickUpper flag."
+  exit 1
+fi
+
+# Check that the anchorTickWidth is defined and is a number
+if [[ ! "$anchorTickWidth" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid anchor tick width specified. Provide the number after the --anchorTickWidth flag."
+  exit 1
+fi
+
 echo "Using chain: $CHAIN"
 echo "Using RPC at URL: $RPC_URL"
+echo "Deployer: $DEPLOYER_ADDRESS"
 echo "Using quote token: $quoteToken"
 echo "Using base token: $baseToken"
 echo "Using callback: $callback"
 echo "Using allowlist merkle root: $allowlistMerkleRoot"
-echo "Deployer: $DEPLOYER_ADDRESS"
+echo "Using pool percent: $poolPercent"
+echo "Using floor reserves percent: $floorReservesPercent"
+echo "Using floor range gap: $floorRangeGap"
+echo "Using anchor tick upper: $anchorTickUpper"
+echo "Using anchor tick width: $anchorTickWidth"
 
 # Set BROADCAST_FLAG based on BROADCAST
 BROADCAST_FLAG=""
@@ -82,6 +122,6 @@ else
 fi
 
 # Create auction
-forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,bytes32)()" $CHAIN $quoteToken $baseToken $callback $allowlistMerkleRoot \
+forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,bytes32,uint24,uint24,int24,int24,int24)()" $CHAIN $quoteToken $baseToken $callback $allowlistMerkleRoot $poolPercent $floorReservesPercent $floorRangeGap $anchorTickUpper $anchorTickWidth \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG
