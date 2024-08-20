@@ -10,7 +10,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@openzeppelin/merkle-tree": "^1.0.6"
+    "@openzeppelin/merkle-tree": "^1.0.6",
+    "csv-parser": "^3.0.0"
   },
   "scripts": {
     "fmt:check": "prettier --check .",
