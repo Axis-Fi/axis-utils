@@ -33,7 +33,7 @@ ignore = [
 forge-std = "1.9.1"
 solmate = { version = "6.7.0", url = "git@github.com:transmissions11/solmate.git", commit = "c892309933b25c03d32b1b0d674df7ae292ba925" }
 axis-core = { version = "1.0.0" }
-axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "a87edb37c610315dd46cd2d780863bb477f5c0c6" }
+axis-periphery = { version = "0.9.0", git = "git@github.com:Axis-Fi/axis-periphery.git", rev = "7418c7ad0ce3b2dfdd10a574f746ef50608636c3" }
 solady = { version = "0.0.124" }
 clones-with-immutable-args = { version = "1.1.1", git = "git@github.com:wighawag/clones-with-immutable-args.git", rev = "f5ca191afea933d50a36d101009b5644dc28bc99" }
 "@openzeppelin-contracts" = { version = "4.9.2" }
