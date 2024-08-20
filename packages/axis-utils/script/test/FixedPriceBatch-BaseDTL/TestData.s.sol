@@ -35,6 +35,8 @@ contract TestData is Script, WithEnvironment {
         address quoteToken_,
         address baseToken_,
         address callback_,
+        uint24 poolPercent_,
+        uint24 maxSlippage_,
         uint24 uniswapV3PoolFee_
     ) public returns (uint96) {
         // Load addresses from .env
@@ -53,18 +55,17 @@ contract TestData is Script, WithEnvironment {
             console2.log("Callback enabled");
 
             // Second-level callback implParams
-            uint24 maxSlippage = 50; // 0.5%
             bytes memory callbackImplParams = abi.encode("");
             if (uniswapV3PoolFee_ > 0) {
                 console2.log("Setting Uniswap V3 pool fee to", uniswapV3PoolFee_);
-                callbackImplParams = abi.encode(uniswapV3PoolFee_, maxSlippage);
+                callbackImplParams = abi.encode(uniswapV3PoolFee_, maxSlippage_);
             } else {
-                callbackImplParams = abi.encode(maxSlippage);
+                callbackImplParams = abi.encode(maxSlippage_);
             }
 
             routingParams.callbackData = abi.encode(
                 BaseDirectToLiquidity.OnCreateParams({
-                    poolPercent: 50e2, // 50%
+                    poolPercent: poolPercent_,
                     vestingStart: 0,
                     vestingExpiry: 0,
                     recipient: msg.sender,

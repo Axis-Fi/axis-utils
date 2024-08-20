@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --poolFee <uint24> --envFile <.env> --broadcast <false>
+# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --poolPercent <uint24> --maxSlippage <uint24> --poolFee <uint24> --envFile <.env> --broadcast <false>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -57,6 +57,20 @@ then
   exit 1
 fi
 
+# Check that the poolPercent is defined and is a uint24
+if [[ ! "$poolPercent" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid poolPercent specified. Provide a uint24 value after the --poolPercent flag."
+  exit 1
+fi
+
+# Check that the maxSlippage is defined and is a uint24
+if [[ ! "$maxSlippage" =~ ^[0-9]+$ ]]
+then
+  echo "Invalid maxSlippage specified. Provide a uint24 value after the --maxSlippage flag."
+  exit 1
+fi
+
 # If the pool fee is not set, set it to 0
 if [ -z "$poolFee" ]
 then
@@ -65,11 +79,13 @@ fi
 
 echo "Using chain: $CHAIN"
 echo "Using RPC at URL: $RPC_URL"
+echo "Deployer: $DEPLOYER_ADDRESS"
 echo "Using quote token: $quoteToken"
 echo "Using base token: $baseToken"
 echo "Using callback: $callback"
+echo "Using pool percent: $poolPercent"
+echo "Using max slippage: $maxSlippage"
 echo "Using pool fee (Uniswap V3 only): $poolFee"
-echo "Deployer: $DEPLOYER_ADDRESS"
 
 # Set BROADCAST_FLAG based on BROADCAST
 BROADCAST_FLAG=""
@@ -81,6 +97,6 @@ else
 fi
 
 # Create auction
-forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,uint24)()" $CHAIN $quoteToken $baseToken $callback $poolFee \
+forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,uint24,uint24,uint24)()" $CHAIN $quoteToken $baseToken $callback $poolPercent $maxSlippage $poolFee \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG
