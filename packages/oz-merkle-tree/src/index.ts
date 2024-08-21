@@ -6,7 +6,7 @@ type Proof = {
   root: string;
   entries: {
     value: string[];
-    proof: string;
+    proofs: string[];
   }[];
 };
 
@@ -25,7 +25,7 @@ const generateMerkleTree = (name: string, values: any[][], types: string[]) => {
 
     proofs.entries.push({
       value: v as string[],
-      proof: proof[0],
+      proofs: proof,
     });
   }
 
