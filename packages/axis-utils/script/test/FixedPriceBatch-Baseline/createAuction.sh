@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --allowlistMerkleRoot <bytes32> --poolPercent <uint24> --floorReservesPercent <uint24> --floorRangeGap <int24> --anchorTickUpper <int24> --anchorTickWidth <int24> --envFile <.env>
+# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --allowlistMerkleProof <path> --poolPercent <uint24> --floorReservesPercent <uint24> --floorRangeGap <int24> --anchorTickUpper <int24> --anchorTickWidth <int24> --envFile <.env>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -57,10 +57,20 @@ then
   exit 1
 fi
 
+# Check that the path for the allowlist merkle proofs is defined and exists
+if [ ! -f "$allowlistMerkleProof" ]
+then
+  echo "Invalid allowlist merkle proof path specified. Provide the path after the --allowlistMerkleProof flag."
+  exit 1
+fi
+
+# Attempt to read the merkle root from the allowlist merkle proof
+allowlistMerkleRoot=$(jq -r '.root' $allowlistMerkleProof)
+
 # Check that the allowlist merkle root is defined and is a bytes32 string
 if [[ ! "$allowlistMerkleRoot" =~ ^0x[a-fA-F0-9]{64}$ ]]
 then
-  echo "Invalid allowlist merkle root specified. Provide the bytes32 string after the --allowlistMerkleRoot flag."
+  echo "Invalid allowlist merkle root in the allowlist merkle proof at $allowlistMerkleProof - it should be located at the top-level key 'root'."
   exit 1
 fi
 

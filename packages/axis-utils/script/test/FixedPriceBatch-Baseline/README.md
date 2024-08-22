@@ -12,8 +12,10 @@
 6. Deploy the BaselineAllocatedAllowlist callback contract
    - You will need to provide the kernel, owner, and reserveToken
 7. Generate the Merkle root
+   - Use the oz-merkle-tree tool for this
 8. Create the auction
-   - You will need to provide the quote token, base token, BaselineAllocatedAllowlist address and Merkle root
+   - You will need to provide parameters for the auction
+   - The `packages/oz-merkle-tree/out/<csv filename>-proofs.json` file should be provided as the input for the `--allowlistMerkleProofs` parameter.
 
 ## To Settle an Auction
 
