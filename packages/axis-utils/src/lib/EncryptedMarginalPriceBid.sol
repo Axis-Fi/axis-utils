@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity ^0.8.0;
 
-import {ECIES, Point} from "@axis-core-1.0.0/lib/ECIES.sol";
+import {ECIES, Point} from "@axis-core-1.0.1/lib/ECIES.sol";
 
 /// @title  EncryptedMarginalPriceBid
 /// @notice Library for encrypting the amount out for a bid in an encrypted marginal price auction

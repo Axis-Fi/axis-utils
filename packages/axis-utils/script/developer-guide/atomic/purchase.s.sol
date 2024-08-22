@@ -10,8 +10,8 @@ import {Constants} from "../constants.s.sol";
 import {MockERC20} from "../../../test/mocks/MockERC20.sol";
 
 // Axis contracts
-import {IAtomicAuctionHouse} from "@axis-core-1.0.0/interfaces/IAtomicAuctionHouse.sol";
-import {IFixedPriceSale} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceSale.sol";
+import {IAtomicAuctionHouse} from "@axis-core-1.0.1/interfaces/IAtomicAuctionHouse.sol";
+import {IFixedPriceSale} from "@axis-core-1.0.1/interfaces/modules/auctions/IFixedPriceSale.sol";
 
 contract PurchaseScript is Script, Constants {
     function run(bool usePermit2_) public {

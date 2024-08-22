@@ -7,7 +7,7 @@ import {Script} from "@forge-std-1.9.1/Script.sol";
 import {Constants} from "./constants.s.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-1.0.1/interfaces/IAuctionHouse.sol";
 
 contract CancelAuctionScript is Script, Constants {
     function run() public {
