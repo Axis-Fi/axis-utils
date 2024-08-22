@@ -6,7 +6,7 @@ import {ECIES, Point} from "@axis-core-1.0.0/lib/ECIES.sol";
 /// @title  EncryptedMarginalPriceBid
 /// @notice Library for encrypting the amount out for a bid in an encrypted marginal price auction
 library EncryptedMarginalPriceBid {
-    function _formatBid(uint96 amountOut_, uint128 bidSeed) internal pure returns (uint256) {
+    function formatBid(uint96 amountOut_, uint128 bidSeed) internal pure returns (uint256) {
         uint256 formattedAmountOut;
         {
             uint128 subtracted;
@@ -39,7 +39,7 @@ library EncryptedMarginalPriceBid {
         uint256 bidPrivateKey_
     ) public view returns (uint256 encryptedAmountOut) {
         // Format the amount out
-        uint256 formattedAmountOut = _formatBid(amountOut_, bidSeed_);
+        uint256 formattedAmountOut = formatBid(amountOut_, bidSeed_);
         uint256 salt = uint256(keccak256(abi.encodePacked(lotId_, bidder_, uint96(amountIn_))));
 
         (encryptedAmountOut,) =
