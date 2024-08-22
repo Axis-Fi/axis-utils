@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./placeBid.sh --lotId <uint96> --amount <uint256> --envFile <.env>
+# ./placeBid.sh --lotId <uint96> --amount <uint256> --allocatedAmount <uint256> --merkleProofFile <path> --envFile <.env>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -16,6 +16,11 @@ while [ $# -gt 0 ]; do
 
   shift
 done
+
+# If DEBUG is set, print the commands
+if [ ! -z "$DEBUG" ]; then
+  set -x
+fi
 
 # Get the name of the .env file or use the default
 ENV_FILE=${envFile:-".env"}
@@ -50,13 +55,6 @@ then
   exit 1
 fi
 
-# Check that the merkle proof is defined and is a bytes32 string
-if [[ ! "$merkleProof" =~ ^0x[a-fA-F0-9]{64}$ ]]
-then
-  echo "Invalid merkle proof specified. Provide the bytes32 string after the --merkleProof flag."
-  exit 1
-fi
-
 # Check that the allocated amount is defined and is an integer
 if [[ ! "$allocatedAmount" =~ ^[0-9]+$ ]]
 then
@@ -64,13 +62,51 @@ then
   exit 1
 fi
 
+# Check that the merkle proof file is defined and exists
+if [ ! -f "$merkleProofFile" ]
+then
+  echo "Invalid merkle proof file path specified. Provide the path after the --merkleProofFile flag."
+  exit 1
+fi
+
+# Read the merkle proofs from the file using the deployer address and allocated amount
+# Expected format:
+# {
+#   root: string;
+#   entries: {
+#     value: string[];
+#     proofs: string[];
+#   }[];
+# }
+merkleProofs=$(jq -r --arg deployer "$DEPLOYER_ADDRESS" --arg allocatedAmount "$allocatedAmount" '.entries[] | select(.value[0] == $deployer and .value[1] == $allocatedAmount) | .proofs' $merkleProofFile)
+# Strip spacing, newlines, single quotes, double quotes
+merkleProofs=$(echo $merkleProofs | tr -d '[:space:]' | tr -d "'" | tr -d '"')
+
+# Check that the merkle proof was found
+if [ -z "$merkleProofs" ]
+then
+  echo "No merkle proof found for the deployer address $DEPLOYER_ADDRESS and allocated amount $allocatedAmount in the merkle proof file at $merkleProofFile"
+  exit 1
+fi
+
+# Check that the merkle proof is defined and is an array of bytes32 strings
+# Expected format: [0x...,0x...,...]
+if [[ ! "$merkleProofs" =~ ^\[0x[a-fA-F0-9]{64}(,0x[a-fA-F0-9]{64})*\]$ ]]
+then
+  echo "Invalid merkle proofs in the merkle proof file at $merkleProofFile"
+  echo "The merkle proofs should be located at the top-level key 'entries' and contain an array of objects with the keys 'value' and 'proofs'."
+  echo "Actual value: $merkleProofs"
+  exit 1
+fi
+
 echo "Using chain: $CHAIN"
 echo "Using RPC at URL: $RPC_URL"
+echo "Deployer: $DEPLOYER_ADDRESS"
 echo "Lot ID: $lotId"
 echo "Amount: $amount"
-echo "Merkle proof: $merkleProof"
 echo "Allocated amount: $allocatedAmount"
-echo "Deployer: $DEPLOYER_ADDRESS"
+echo "Allowlist merkle proof file: $merkleProofFile"
+echo "Allowlist merkle proofs: $merkleProofs"
 
 # Set BROADCAST_FLAG based on BROADCAST
 BROADCAST_FLAG=""
@@ -82,6 +118,6 @@ else
 fi
 
 # Create auction
-forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "placeBid(string,uint96,uint256,bytes32,uint256)()" $CHAIN $lotId $amount $merkleProof $allocatedAmount \
+forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "placeBid(string,uint96,uint256,bytes32[],uint256)()" $CHAIN $lotId $amount $merkleProofs $allocatedAmount \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG

@@ -118,7 +118,7 @@ contract TestData is Script, WithEnvironment {
         string calldata chain_,
         uint96 lotId_,
         uint256 amount_,
-        bytes32 merkleProof_,
+        bytes32[] calldata merkleProofs_,
         uint256 allocatedAmount_
     ) public {
         _loadEnv(chain_);
@@ -134,9 +134,6 @@ contract TestData is Script, WithEnvironment {
             console2.log("Approved spending of quote token by BatchAuctionHouse");
         }
 
-        bytes32[] memory allowlistProof = new bytes32[](1);
-        allowlistProof[0] = merkleProof_;
-
         vm.broadcast();
         uint64 bidId = auctionHouse.bid(
             IBatchAuctionHouse.BidParams({
@@ -147,7 +144,7 @@ contract TestData is Script, WithEnvironment {
                 auctionData: abi.encode(""),
                 permit2Data: bytes("")
             }),
-            abi.encode(allowlistProof, allocatedAmount_)
+            abi.encode(merkleProofs_, allocatedAmount_)
         );
 
         console2.log("Bid placed with ID: ", bidId);
