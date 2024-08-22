@@ -70,7 +70,9 @@ merkleRoot=$(jq -r '.root' $merkleProofFile)
 # Check that the allowlist merkle root is defined and is a bytes32 string
 if [[ ! "$merkleRoot" =~ ^0x[a-fA-F0-9]{64}$ ]]
 then
-  echo "Invalid allowlist merkle root in the allowlist merkle proof at $merkleProofFile - it should be located at the top-level key 'root'."
+  echo "Invalid allowlist merkle root in the allowlist merkle proof at $merkleProofFile"
+  echo "The merkle root should be located at the top-level key 'root'."
+  echo "Actual value: $merkleRoot"
   exit 1
 fi
 
