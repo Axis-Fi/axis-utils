@@ -15,7 +15,7 @@
    - Use the oz-merkle-tree tool for this
 8. Create the auction
    - You will need to provide parameters for the auction
-   - The `packages/oz-merkle-tree/out/<csv filename>-proofs.json` file should be provided as the input for the `--allowlistMerkleProofs` parameter.
+   - The `packages/oz-merkle-tree/out/<csv filename>-proofs.json` file should be provided as the input for the `--merkleProofFile` parameter.
 
 ## To Settle an Auction
 

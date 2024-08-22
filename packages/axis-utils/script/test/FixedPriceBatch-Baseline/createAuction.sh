@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --allowlistMerkleProof <path> --poolPercent <uint24> --floorReservesPercent <uint24> --floorRangeGap <int24> --anchorTickUpper <int24> --anchorTickWidth <int24> --envFile <.env>
+# ./createAuction.sh --quoteToken <address> --baseToken <address> --callback <address> --merkleProofFile <path> --poolPercent <uint24> --floorReservesPercent <uint24> --floorRangeGap <int24> --anchorTickUpper <int24> --anchorTickWidth <int24> --envFile <.env>
 #
 # Expects the following environment variables:
 # CHAIN: The chain to deploy to, based on values from the ./script/env.json file.
@@ -58,19 +58,19 @@ then
 fi
 
 # Check that the path for the allowlist merkle proofs is defined and exists
-if [ ! -f "$allowlistMerkleProof" ]
+if [ ! -f "$merkleProofFile" ]
 then
-  echo "Invalid allowlist merkle proof path specified. Provide the path after the --allowlistMerkleProof flag."
+  echo "Invalid allowlist merkle proof path specified. Provide the path after the --merkleProofFile flag."
   exit 1
 fi
 
 # Attempt to read the merkle root from the allowlist merkle proof
-allowlistMerkleRoot=$(jq -r '.root' $allowlistMerkleProof)
+merkleRoot=$(jq -r '.root' $merkleProofFile)
 
 # Check that the allowlist merkle root is defined and is a bytes32 string
-if [[ ! "$allowlistMerkleRoot" =~ ^0x[a-fA-F0-9]{64}$ ]]
+if [[ ! "$merkleRoot" =~ ^0x[a-fA-F0-9]{64}$ ]]
 then
-  echo "Invalid allowlist merkle root in the allowlist merkle proof at $allowlistMerkleProof - it should be located at the top-level key 'root'."
+  echo "Invalid allowlist merkle root in the allowlist merkle proof at $merkleProofFile - it should be located at the top-level key 'root'."
   exit 1
 fi
 
@@ -115,7 +115,8 @@ echo "Deployer: $DEPLOYER_ADDRESS"
 echo "Using quote token: $quoteToken"
 echo "Using base token: $baseToken"
 echo "Using callback: $callback"
-echo "Using allowlist merkle root: $allowlistMerkleRoot"
+echo "Using allowlist merkle proof file: $merkleProofFile"
+echo "Using allowlist merkle root: $merkleRoot"
 echo "Using pool percent: $poolPercent"
 echo "Using floor reserves percent: $floorReservesPercent"
 echo "Using floor range gap: $floorRangeGap"
@@ -132,6 +133,6 @@ else
 fi
 
 # Create auction
-forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,bytes32,uint24,uint24,int24,int24,int24)()" $CHAIN $quoteToken $baseToken $callback $allowlistMerkleRoot $poolPercent $floorReservesPercent $floorRangeGap $anchorTickUpper $anchorTickWidth \
+forge script ./script/test/FixedPriceBatch-Baseline/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,bytes32,uint24,uint24,int24,int24,int24)()" $CHAIN $quoteToken $baseToken $callback $merkleRoot $poolPercent $floorReservesPercent $floorRangeGap $anchorTickUpper $anchorTickWidth \
 --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
 $BROADCAST_FLAG
