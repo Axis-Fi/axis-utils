@@ -5,5 +5,5 @@ source .env
 
 # Create auction
 forge script ./script/test/EncryptedMarginalPrice/TestData.s.sol:TestData --sig "placeBid(uint96,uint256,uint256)()" $1 $2 $3 \
---rpc-url $RPC_URL --private-key $BIDDER_PRIVATE_KEY --froms $BIDDER_ADDRESS --slow -vvv \
---broadcast
+  --rpc-url $RPC_URL --private-key $BIDDER_PRIVATE_KEY --froms $BIDDER_ADDRESS --slow -vvv \
+  --broadcast

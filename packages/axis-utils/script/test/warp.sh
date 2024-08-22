@@ -19,20 +19,18 @@ ENV_FILE=${envFile:-".env"}
 echo "Sourcing environment variables from $ENV_FILE"
 
 # Load environment file
-set -a  # Automatically export all variables
+set -a # Automatically export all variables
 source $ENV_FILE
-set +a  # Disable automatic export
+set +a # Disable automatic export
 
 # Check that the ADMIN_RPC_URL is defined
-if [ -z "$ADMIN_RPC_URL" ]
-then
+if [ -z "$ADMIN_RPC_URL" ]; then
   echo "No RPC URL specified. Set the ADMIN_RPC_URL environment variable."
   exit 1
 fi
 
 # Check that the timestamp is defined and is an integer
-if [[ ! "$timestamp" =~ ^[0-9]+$ ]]
-then
+if [[ ! "$timestamp" =~ ^[0-9]+$ ]]; then
   echo "Invalid timestamp specified. Provide an integer after the --timestamp flag."
   exit 1
 fi

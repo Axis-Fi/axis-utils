@@ -22,58 +22,51 @@ ENV_FILE=${envFile:-".env"}
 echo "Sourcing environment variables from $ENV_FILE"
 
 # Load environment file
-set -a  # Automatically export all variables
+set -a # Automatically export all variables
 source $ENV_FILE
-set +a  # Disable automatic export
+set +a # Disable automatic export
 
 # Apply defaults to command-line arguments
 BROADCAST=${broadcast:-false}
 
 # Check that the CHAIN is defined
-if [ -z "$CHAIN" ]
-then
+if [ -z "$CHAIN" ]; then
   echo "No chain specified. Set the CHAIN environment variable."
   exit 1
 fi
 
 # Check that the quote token is defined and is an address
-if [[ ! "$quoteToken" =~ ^0x[0-9a-fA-F]{40}$ ]]
-then
+if [[ ! "$quoteToken" =~ ^0x[0-9a-fA-F]{40}$ ]]; then
   echo "Invalid quote token specified. Provide the address after the --quoteToken flag."
   exit 1
 fi
 
 # Check that the base token is defined and is an address
-if [[ ! "$baseToken" =~ ^0x[a-fA-F0-9]{40}$ ]]
-then
+if [[ ! "$baseToken" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
   echo "Invalid base token specified. Provide the address after the --baseToken flag."
   exit 1
 fi
 
 # Check that the callback is defined and is an address
-if [[ ! "$callback" =~ ^0x[a-fA-F0-9]{40}$ ]]
-then
+if [[ ! "$callback" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
   echo "Invalid callback specified. Provide the address after the --callback flag."
   exit 1
 fi
 
 # Check that the poolPercent is defined and is a uint24
-if [[ ! "$poolPercent" =~ ^[0-9]+$ ]]
-then
+if [[ ! "$poolPercent" =~ ^[0-9]+$ ]]; then
   echo "Invalid poolPercent specified. Provide a uint24 value after the --poolPercent flag."
   exit 1
 fi
 
 # Check that the maxSlippage is defined and is a uint24
-if [[ ! "$maxSlippage" =~ ^[0-9]+$ ]]
-then
+if [[ ! "$maxSlippage" =~ ^[0-9]+$ ]]; then
   echo "Invalid maxSlippage specified. Provide a uint24 value after the --maxSlippage flag."
   exit 1
 fi
 
 # If the pool fee is not set, set it to 0
-if [ -z "$poolFee" ]
-then
+if [ -z "$poolFee" ]; then
   poolFee=0
 fi
 
@@ -98,5 +91,5 @@ fi
 
 # Create auction
 forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "createAuction(string,address,address,address,uint24,uint24,uint24)()" $CHAIN $quoteToken $baseToken $callback $poolPercent $maxSlippage $poolFee \
---rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
-$BROADCAST_FLAG
+  --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
+  $BROADCAST_FLAG
