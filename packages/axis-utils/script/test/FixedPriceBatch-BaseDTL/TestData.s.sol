@@ -15,7 +15,7 @@ import {IFixedPriceBatch} from "@axis-core-1.0.1/interfaces/modules/auctions/IFi
 import {IAuction} from "@axis-core-1.0.1/interfaces/modules/IAuction.sol";
 
 // Callbacks
-import {BaseDirectToLiquidity} from "@axis-periphery-1.0.1/callbacks/liquidity/BaseDTL.sol";
+import {BaseDirectToLiquidity} from "@axis-periphery-1.0.0/callbacks/liquidity/BaseDTL.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";

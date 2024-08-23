@@ -16,7 +16,7 @@ import {IAuction} from "@axis-core-1.0.1/interfaces/modules/IAuction.sol";
 
 // Baseline
 import {BaselineAxisLaunch} from
-    "@axis-periphery-1.0.1/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
+    "@axis-periphery-1.0.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";

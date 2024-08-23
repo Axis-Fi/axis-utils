@@ -19,9 +19,9 @@ checksum = "90ee8eca451f4454ad911c52d014bebbbacc3e0ba2260ad19e56e32598ea9d21"
 
 [[dependencies]]
 name = "axis-periphery"
-version = "1.0.1"
-source = "git@github.com:Axis-Fi/axis-periphery.git"
-checksum = "f294ee556963aa8c223e83f7799d2d43c2c20dce"
+version = "1.0.0"
+source = "https://soldeer-revisions.s3.amazonaws.com/axis-periphery/1_0_0_22-08-2024_19:37:58_axis-periphery.zip"
+checksum = "fb20c7ebe7ab30697b72300c8c9e4cc847de98c35ab8c05b5d71fe3ed59fead0"
 
 [[dependencies]]
 name = "solady"
