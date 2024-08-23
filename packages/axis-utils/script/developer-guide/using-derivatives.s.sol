@@ -10,17 +10,17 @@ import {Constants} from "./constants.s.sol";
 import {MockERC20} from "../../test/mocks/MockERC20.sol";
 
 // Axis contracts
-import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
-import {IAtomicAuctionHouse} from "@axis-core-1.0.0/interfaces/IAtomicAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-1.0.1/interfaces/IAuctionHouse.sol";
+import {IAtomicAuctionHouse} from "@axis-core-1.0.1/interfaces/IAtomicAuctionHouse.sol";
 
-import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
-import {IFixedPriceSale} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceSale.sol";
+import {IAuction} from "@axis-core-1.0.1/interfaces/modules/IAuction.sol";
+import {IFixedPriceSale} from "@axis-core-1.0.1/interfaces/modules/auctions/IFixedPriceSale.sol";
 
-import {IDerivative} from "@axis-core-1.0.0/interfaces/modules/IDerivative.sol";
-import {ILinearVesting} from "@axis-core-1.0.0/interfaces/modules/derivatives/ILinearVesting.sol";
+import {IDerivative} from "@axis-core-1.0.1/interfaces/modules/IDerivative.sol";
+import {ILinearVesting} from "@axis-core-1.0.1/interfaces/modules/derivatives/ILinearVesting.sol";
 
-import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
-import {toKeycode} from "@axis-core-1.0.0/modules/Keycode.sol";
+import {ICallback} from "@axis-core-1.0.1/interfaces/ICallback.sol";
+import {toKeycode} from "@axis-core-1.0.1/modules/Keycode.sol";
 
 contract DerivativesScript is Script, Constants {
     function createAuction() external {

@@ -22,23 +22,21 @@ ENV_FILE=${envFile:-".env"}
 echo "Sourcing environment variables from $ENV_FILE"
 
 # Load environment file
-set -a  # Automatically export all variables
+set -a # Automatically export all variables
 source $ENV_FILE
-set +a  # Disable automatic export
+set +a # Disable automatic export
 
 # Apply defaults to command-line arguments
 BROADCAST=${broadcast:-false}
 
 # Check that the CHAIN is defined
-if [ -z "$CHAIN" ]
-then
+if [ -z "$CHAIN" ]; then
   echo "No chain specified. Set the CHAIN environment variable."
   exit 1
 fi
 
 # Check that the lotId is defined and is an integer
-if [[ ! "$lotId" =~ ^[0-9]+$ ]]
-then
+if [[ ! "$lotId" =~ ^[0-9]+$ ]]; then
   echo "Invalid lotId specified. Provide the integer value after the --lotId flag."
   exit 1
 fi
@@ -59,5 +57,5 @@ fi
 
 # Create auction
 forge script ./script/test/FixedPriceBatch-BaseDTL/TestData.s.sol:TestData --sig "settleAuction(string,uint96)()" $CHAIN $lotId \
---rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
-$BROADCAST_FLAG
+  --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvvv \
+  $BROADCAST_FLAG

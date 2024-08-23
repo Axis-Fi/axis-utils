@@ -19,9 +19,9 @@ ENV_FILE=${envFile:-".env"}
 echo "Sourcing environment variables from $ENV_FILE"
 
 # Load environment file
-set -a  # Automatically export all variables
+set -a # Automatically export all variables
 source $ENV_FILE
-set +a  # Disable automatic export
+set +a # Disable automatic export
 
 # Apply defaults to command-line arguments
 BROADCAST=${broadcast:-false}
@@ -29,15 +29,13 @@ VERIFY=${verify:-false}
 RESUME=${resume:-false}
 
 # Check that the seller is defined and is an address
-if [[ ! "$seller" =~ ^0x[a-fA-F0-9]{40}$ ]]
-then
+if [[ ! "$seller" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
   echo "Invalid seller specified. Provide the address after the --seller flag."
   exit 1
 fi
 
 # Check that the buyer is defined and is an address
-if [[ ! "$buyer" =~ ^0x[a-fA-F0-9]{40}$ ]]
-then
+if [[ ! "$buyer" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
   echo "Invalid buyer specified. Provide the address after the --buyer flag."
   exit 1
 fi
@@ -99,7 +97,7 @@ fi
 
 # Create auction
 forge script ./script/test/DeployTokens.s.sol:DeployTokens --sig "deployTestTokens(address,address)()" $seller $buyer \
---rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvv \
-$BROADCAST_FLAG \
-$VERIFY_FLAG \
-$RESUME_FLAG
+  --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvv \
+  $BROADCAST_FLAG \
+  $VERIFY_FLAG \
+  $RESUME_FLAG

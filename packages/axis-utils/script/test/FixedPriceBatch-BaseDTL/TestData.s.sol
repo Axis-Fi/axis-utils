@@ -6,18 +6,16 @@ import {Script, console2} from "@forge-std-1.9.1/Script.sol";
 import {WithEnvironment} from "../../WithEnvironment.s.sol";
 
 // System contracts
-import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";
-import {BatchAuctionHouse} from "@axis-core-1.0.0/BatchAuctionHouse.sol";
-import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
-import {toKeycode} from "@axis-core-1.0.0/modules/Modules.sol";
-import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
-import {IFixedPriceBatch} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceBatch.sol";
-import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
+import {IBatchAuctionHouse} from "@axis-core-1.0.1/interfaces/IBatchAuctionHouse.sol";
+import {BatchAuctionHouse} from "@axis-core-1.0.1/BatchAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-1.0.1/interfaces/IAuctionHouse.sol";
+import {toKeycode} from "@axis-core-1.0.1/modules/Modules.sol";
+import {ICallback} from "@axis-core-1.0.1/interfaces/ICallback.sol";
+import {IFixedPriceBatch} from "@axis-core-1.0.1/interfaces/modules/auctions/IFixedPriceBatch.sol";
+import {IAuction} from "@axis-core-1.0.1/interfaces/modules/IAuction.sol";
 
 // Callbacks
-import {BaseDirectToLiquidity} from "@axis-periphery-0.9.0/callbacks/liquidity/BaseDTL.sol";
-import {UniswapV2DirectToLiquidity} from
-    "@axis-periphery-0.9.0/callbacks/liquidity/UniswapV2DTL.sol";
+import {BaseDirectToLiquidity} from "@axis-periphery-1.0.0/callbacks/liquidity/BaseDTL.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
@@ -37,6 +35,8 @@ contract TestData is Script, WithEnvironment {
         address quoteToken_,
         address baseToken_,
         address callback_,
+        uint24 poolPercent_,
+        uint24 maxSlippage_,
         uint24 uniswapV3PoolFee_
     ) public returns (uint96) {
         // Load addresses from .env
@@ -54,15 +54,18 @@ contract TestData is Script, WithEnvironment {
         if (callback_ != address(0)) {
             console2.log("Callback enabled");
 
+            // Second-level callback implParams
             bytes memory callbackImplParams = abi.encode("");
             if (uniswapV3PoolFee_ > 0) {
                 console2.log("Setting Uniswap V3 pool fee to", uniswapV3PoolFee_);
-                callbackImplParams = abi.encode(uniswapV3PoolFee_);
+                callbackImplParams = abi.encode(uniswapV3PoolFee_, maxSlippage_);
+            } else {
+                callbackImplParams = abi.encode(maxSlippage_);
             }
 
             routingParams.callbackData = abi.encode(
                 BaseDirectToLiquidity.OnCreateParams({
-                    proceedsUtilisationPercent: 5000, // 50%
+                    poolPercent: poolPercent_,
                     vestingStart: 0,
                     vestingExpiry: 0,
                     recipient: msg.sender,
@@ -152,11 +155,8 @@ contract TestData is Script, WithEnvironment {
 
         console2.log("Timestamp is", block.timestamp);
 
-        bytes memory callbackData =
-            abi.encode(UniswapV2DirectToLiquidity.OnSettleParams({maxSlippage: 50})); // 0.5%
-
         vm.broadcast();
-        auctionHouse.settle(lotId_, 100, callbackData);
+        auctionHouse.settle(lotId_, 100, "");
 
         console2.log("Auction settled with lot ID: ", lotId_);
     }

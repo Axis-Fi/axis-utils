@@ -5,5 +5,5 @@ source .env
 
 # Cancel auction
 forge script ./script/test/EncryptedMarginalPrice/TestData.s.sol:TestData --sig "cancelAuction(uint96)()" $1 \
---rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvv \
---broadcast
+  --rpc-url $RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --froms $DEPLOYER_ADDRESS --slow -vvv \
+  --broadcast

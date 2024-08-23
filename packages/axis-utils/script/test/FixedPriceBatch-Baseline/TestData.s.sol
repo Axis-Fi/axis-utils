@@ -6,17 +6,17 @@ import {Script, console2} from "@forge-std-1.9.1/Script.sol";
 import {WithEnvironment} from "../../WithEnvironment.s.sol";
 
 // System contracts
-import {IBatchAuctionHouse} from "@axis-core-1.0.0/interfaces/IBatchAuctionHouse.sol";
-import {BatchAuctionHouse} from "@axis-core-1.0.0/BatchAuctionHouse.sol";
-import {IAuctionHouse} from "@axis-core-1.0.0/interfaces/IAuctionHouse.sol";
-import {toKeycode} from "@axis-core-1.0.0/modules/Modules.sol";
-import {ICallback} from "@axis-core-1.0.0/interfaces/ICallback.sol";
-import {IFixedPriceBatch} from "@axis-core-1.0.0/interfaces/modules/auctions/IFixedPriceBatch.sol";
-import {IAuction} from "@axis-core-1.0.0/interfaces/modules/IAuction.sol";
+import {IBatchAuctionHouse} from "@axis-core-1.0.1/interfaces/IBatchAuctionHouse.sol";
+import {BatchAuctionHouse} from "@axis-core-1.0.1/BatchAuctionHouse.sol";
+import {IAuctionHouse} from "@axis-core-1.0.1/interfaces/IAuctionHouse.sol";
+import {toKeycode} from "@axis-core-1.0.1/modules/Modules.sol";
+import {ICallback} from "@axis-core-1.0.1/interfaces/ICallback.sol";
+import {IFixedPriceBatch} from "@axis-core-1.0.1/interfaces/modules/auctions/IFixedPriceBatch.sol";
+import {IAuction} from "@axis-core-1.0.1/interfaces/modules/IAuction.sol";
 
 // Baseline
 import {BaselineAxisLaunch} from
-    "@axis-periphery-0.9.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
+    "@axis-periphery-1.0.0/callbacks/liquidity/BaselineV2/BaselineAxisLaunch.sol";
 
 // Generic contracts
 import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
@@ -36,7 +36,12 @@ contract TestData is Script, WithEnvironment {
         address quoteToken_,
         address baseToken_,
         address callback_,
-        bytes32 merkleRoot
+        bytes32 merkleRoot,
+        uint24 poolPercent_,
+        uint24 floorReservesPercent_,
+        int24 floorRangeGap_,
+        int24 anchorTickU_,
+        int24 anchorTickWidth_
     ) public returns (uint96) {
         // Load addresses from .env
         _loadEnv(chain_);
@@ -54,9 +59,12 @@ contract TestData is Script, WithEnvironment {
             console2.log("Setting callback parameters");
             routingParams.callbackData = abi.encode(
                 BaselineAxisLaunch.CreateData({
-                    floorReservesPercent: 50e2, // 50%
-                    anchorTickWidth: 3,
-                    discoveryTickWidth: 100,
+                    recipient: msg.sender,
+                    poolPercent: poolPercent_,
+                    floorReservesPercent: floorReservesPercent_,
+                    floorRangeGap: floorRangeGap_,
+                    anchorTickU: anchorTickU_,
+                    anchorTickWidth: anchorTickWidth_,
                     allowlistParams: abi.encode(merkleRoot)
                 })
             );
@@ -110,7 +118,7 @@ contract TestData is Script, WithEnvironment {
         string calldata chain_,
         uint96 lotId_,
         uint256 amount_,
-        bytes32 merkleProof_,
+        bytes32[] calldata merkleProofs_,
         uint256 allocatedAmount_
     ) public {
         _loadEnv(chain_);
@@ -126,9 +134,6 @@ contract TestData is Script, WithEnvironment {
             console2.log("Approved spending of quote token by BatchAuctionHouse");
         }
 
-        bytes32[] memory allowlistProof = new bytes32[](1);
-        allowlistProof[0] = merkleProof_;
-
         vm.broadcast();
         uint64 bidId = auctionHouse.bid(
             IBatchAuctionHouse.BidParams({
@@ -139,7 +144,7 @@ contract TestData is Script, WithEnvironment {
                 auctionData: abi.encode(""),
                 permit2Data: bytes("")
             }),
-            abi.encode(allowlistProof, allocatedAmount_)
+            abi.encode(merkleProofs_, allocatedAmount_)
         );
 
         console2.log("Bid placed with ID: ", bidId);
